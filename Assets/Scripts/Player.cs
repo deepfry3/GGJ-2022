@@ -18,11 +18,15 @@ public class Player : MonoBehaviour
 	[SerializeField] float m_Speed = 10.0f;
 	[SerializeField] float m_Drag = 1.0f;
 	[SerializeField] float m_Gravity = -9.81f;
+	[Header("References")]
+	[SerializeField] Material m_RedMaterial = null;
+	[SerializeField] Material m_BlueMaterial = null;
 
 	// -- Cached Components
 	private PlayerInput m_Input = null;
 	private CharacterController m_CharController = null;
 	private AudioSource m_AudioSource = null;
+	private MeshRenderer m_Renderer = null;
 
 	// -- Input --
 	private Vector2 m_InputMove = Vector2.zero;
@@ -32,6 +36,7 @@ public class Player : MonoBehaviour
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
 	private Vector3 m_ForceMoveVelocity = Vector3.zero;
+	private bool m_IsRed = true;
 	#endregion
 	#endregion
 
@@ -46,6 +51,7 @@ public class Player : MonoBehaviour
 		m_Input = GetComponent<PlayerInput>();
 		m_CharController = GetComponent<CharacterController>();
 		m_AudioSource = GetComponent<AudioSource>();
+		m_Renderer = GetComponent<MeshRenderer>();
 	}
 
 	void Update()
@@ -133,8 +139,8 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnChangeInput(InputAction.CallbackContext value)
 	{
-		// Store button held state
-		m_InputJump = (value.started ? true : value.canceled ? false : m_InputJump);
+		if (value.started)
+			TogglePolarity();
 	}
 	#endregion
 
@@ -147,6 +153,15 @@ public class Player : MonoBehaviour
 	private float Sign(float value)
 	{
 		return value < 0.0f ? -1.0f : value > 0.0f ? 1.0f : 0.0f;
+	}
+
+	/// <summary>
+	/// Toggles the polarity of the player between red and blue.
+	/// </summary>
+	private void TogglePolarity()
+	{
+		m_Renderer.material = m_IsRed ? m_BlueMaterial : m_RedMaterial;
+		m_IsRed = !m_IsRed;
 	}
 	#endregion
 }
