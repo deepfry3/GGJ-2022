@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Force
-      value: 1
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737797, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Enabled
@@ -374,6 +374,7 @@ MonoBehaviour:
   m_VForceMultiplier: 1
   m_GradualRolloff: 0
   m_CapsuleTrigger: {fileID: 0}
+  m_BoxTrigger: {fileID: 0}
   m_RedMaterial: {fileID: 0}
   m_BlueMaterial: {fileID: 0}
 --- !u!65 &339783370
@@ -728,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Force
-      value: 1
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737797, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Enabled
@@ -1228,7 +1229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Force
-      value: 1
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4783338034090737797, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
       propertyPath: m_Enabled

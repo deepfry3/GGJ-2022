@@ -20,13 +20,13 @@ public class Block : MonoBehaviour
 	[SerializeField] [Range(0.0f, 1.0f)] float m_VForceMultiplier = 1.0f;
 	[SerializeField] bool m_GradualRolloff = false;
 	[Header("References")]
-	[SerializeField] CapsuleCollider m_CapsuleTrigger = null;
+	[SerializeField] BoxCollider m_BoxTrigger = null;
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
 
 	// -- Cached Components --
 	private MeshRenderer m_Renderer = null;
-	private float m_CapsuleTriggerExtent = 0.0f;
+	private float m_BoxTriggerExtent = 0.0f;
 	#endregion
 	#endregion
 
@@ -39,7 +39,7 @@ public class Block : MonoBehaviour
 	{
 		// Cache components
 		m_Renderer = GetComponent<MeshRenderer>();
-		m_CapsuleTriggerExtent = m_CapsuleTrigger.height / 2.0f;
+		m_BoxTriggerExtent = m_BoxTrigger.size.y / 2.0f;
 	}
 
 	/// <summary>
@@ -74,7 +74,7 @@ public class Block : MonoBehaviour
 		Vector3 distance = obj.transform.position - transform.position;
 		Vector3 force = m_Force * distance.normalized * (10.0f * Time.deltaTime);
 		if (m_GradualRolloff)
-			force *= Mathf.Lerp(1.0f, 0.25f, Mathf.Min(distance.magnitude, m_CapsuleTriggerExtent) / m_CapsuleTriggerExtent);
+			force *= Mathf.Lerp(1.0f, 0.25f, Mathf.Min(distance.magnitude, m_BoxTriggerExtent) / m_BoxTriggerExtent);
 		if (IsRed != obj.GetComponent<Player>().IsRed)
 			force = -force * 15.0f;
 

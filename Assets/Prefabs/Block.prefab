@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4783338034090737798}
   - component: {fileID: 4783338034090737799}
   - component: {fileID: 4783338034090737796}
-  - component: {fileID: 1948270482458451585}
   - component: {fileID: 4783338034090737792}
+  - component: {fileID: 3164933115018531239}
   m_Layer: 0
   m_Name: Block
   m_TagString: Block
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4783338034090737851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 1, z: 2.5}
+  m_LocalScale: {x: 2.5, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,27 +111,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsRed: 0
-  m_Force: 1
+  m_Force: 0.85
   m_HForceMultiplier: 1
   m_VForceMultiplier: 1
   m_GradualRolloff: 0
-  m_CapsuleTrigger: {fileID: 1948270482458451585}
+  m_BoxTrigger: {fileID: 3164933115018531239}
   m_RedMaterial: {fileID: 2100000, guid: e41ca25d6d98be440bdf16fc5adde018, type: 2}
   m_BlueMaterial: {fileID: 2100000, guid: 8f64955de256b6d41b060ef05a0833a0, type: 2}
---- !u!136 &1948270482458451585
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4783338034090737851}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 6
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4783338034090737792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,3 +134,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3164933115018531239
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4783338034090737851}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 6, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
