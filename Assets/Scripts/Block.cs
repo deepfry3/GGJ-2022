@@ -23,9 +23,14 @@ public class Block : MonoBehaviour
 	[SerializeField] BoxCollider m_BoxTrigger = null;
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
+	[SerializeField] AudioSource m_AudioSource = null;
+	[Header("Audio")]
+	[SerializeField] AudioClip m_MagnetAttractSound = null;
+	[SerializeField] AudioClip m_MagnetRepelSound = null;
 
 	// -- Cached Components --
 	private MeshRenderer m_Renderer = null;
+	private LineRenderer m_LineRenderer = null;
 	private float m_BoxTriggerExtent = 0.0f;
 	#endregion
 	#endregion
@@ -40,6 +45,7 @@ public class Block : MonoBehaviour
 		// Cache components
 		m_Renderer = GetComponent<MeshRenderer>();
 		m_BoxTriggerExtent = m_BoxTrigger.size.y / 2.0f;
+		m_LineRenderer = GetComponent<LineRenderer>();
 	}
 
 	/// <summary>
@@ -60,7 +66,13 @@ public class Block : MonoBehaviour
 	/// <param name="other">The other collider</param>
 	void OnTriggerEnter(Collider other)
 	{
-		// Potentially activate a line showing they're connected
+		// Early-exit
+		GameObject obj = other.gameObject;
+		if (obj.tag != "Player")
+			return;
+
+		m_LineRenderer.enabled = true;
+		m_AudioSource.PlayOneShot(m_MagnetAttractSound);
 	}
 
 	void OnTriggerStay(Collider other)
@@ -81,6 +93,21 @@ public class Block : MonoBehaviour
 		// Apply force
 		if (!TouchingPlayer || IsRed == GameManager.Instance.PlayerObject.GetComponent<Player>().IsRed)
 			obj.GetComponent<Player>().AddForce(force);
+
+		m_LineRenderer.SetPositions(new Vector3[] {
+				transform.position, GameManager.Instance.PlayerObject.transform.position
+			});
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		// Early-exit
+		GameObject obj = other.gameObject;
+		if (obj.tag != "Player")
+			return;
+
+		m_LineRenderer.enabled = false;
+		m_AudioSource.PlayOneShot(m_MagnetRepelSound);
 	}
 	#endregion
 
