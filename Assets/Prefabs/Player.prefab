@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlocksTouching: []
-  m_Speed: 10
+  m_Speed: 11
   m_Drag: 1
   m_Gravity: -9.81
   m_RedMaterial: {fileID: 2100000, guid: e41ca25d6d98be440bdf16fc5adde018, type: 2}

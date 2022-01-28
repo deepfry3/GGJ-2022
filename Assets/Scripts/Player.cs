@@ -251,9 +251,9 @@ public class Player : MonoBehaviour
 	private void ChangeLane(bool value)
 	{
 		if (value)
-			m_CharController.Move(new Vector3(2.0f, 0.0f, 0.0f));
+			m_CharController.Move(new Vector3(3.0f, 0.0f, 0.0f));
 		else
-			m_CharController.Move(new Vector3(-2.0f, 0.0f, 0.0f));
+			m_CharController.Move(new Vector3(-3.0f, 0.0f, 0.0f));
 	}
 	#endregion
 }
