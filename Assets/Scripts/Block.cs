@@ -43,6 +43,18 @@ public class Block : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Animate in
+	/// </summary>
+	void Update()
+	{
+		if (transform.position.y != 0.0f)
+		{
+			Vector3 target = new Vector3(transform.position.x, 0.0f, transform.position.z);
+			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
+		}
+	}
+
+	/// <summary>
 	/// Called when another collider enters the trigger
 	/// </summary>
 	/// <param name="other">The other collider</param>
@@ -73,6 +85,15 @@ public class Block : MonoBehaviour
 	#endregion
 
 	#region Public Functions
+	/// <summary>
+	/// Sets the length of the block.
+	/// </summary>
+	/// <param name="value">Length to set</param>
+	public void SetLength(float value)
+	{
+		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, value);
+	}
+
 	/// <summary>
 	/// Sets the block to be red or blue.
 	/// </summary>

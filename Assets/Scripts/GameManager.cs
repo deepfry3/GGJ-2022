@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
 					continue;
 
 				// Spawn new block
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), 0.0f, z + (i * 10.0f));
+				float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 10.0f));
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
 					newBlock.TogglePolarity();
