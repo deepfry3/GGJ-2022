@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4783338034090737798}
   - component: {fileID: 4783338034090737799}
   - component: {fileID: 4783338034090737796}
-  - component: {fileID: 4783338034090737797}
+  - component: {fileID: 1948270482458451585}
   - component: {fileID: 4783338034090737792}
   m_Layer: 0
   m_Name: Block
@@ -111,15 +111,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsRed: 0
-  m_Force: 10
+  m_Force: 1
   m_HForceMultiplier: 1
   m_VForceMultiplier: 1
   m_GradualRolloff: 0
-  m_SphereTrigger: {fileID: 4783338034090737797}
+  m_CapsuleTrigger: {fileID: 1948270482458451585}
   m_RedMaterial: {fileID: 2100000, guid: e41ca25d6d98be440bdf16fc5adde018, type: 2}
   m_BlueMaterial: {fileID: 2100000, guid: 8f64955de256b6d41b060ef05a0833a0, type: 2}
---- !u!135 &4783338034090737797
-SphereCollider:
+--- !u!136 &1948270482458451585
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -128,8 +128,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.95
+  m_Radius: 0.5
+  m_Height: 6
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4783338034090737792
 Rigidbody:
