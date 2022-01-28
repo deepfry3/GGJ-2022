@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
+	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
 	// -- Cached Components
 
 	// -- Input --
@@ -60,6 +62,11 @@ public class GameManager : MonoBehaviour
 				m_BlockList.Add(newBlock);
 			}
 		}
+	}
+
+	void Update()
+	{
+		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#") + "m";
 	}
 	#endregion
 

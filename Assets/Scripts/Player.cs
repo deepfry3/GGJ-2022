@@ -218,9 +218,12 @@ public class Player : MonoBehaviour
 	/// </summary>
 	public void Reset()
 	{
+		m_CharController.enabled = false;
 		transform.position = new Vector3(0.0f, 1.5f, 0.0f);
 
 		m_DeathTimer = -1.0f;
+		m_ForceMoveVelocity = Vector3.zero;
+		m_CharController.enabled = true;
 	}
 	#endregion
 

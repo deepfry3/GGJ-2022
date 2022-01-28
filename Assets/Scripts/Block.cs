@@ -100,8 +100,6 @@ public class Block : MonoBehaviour
 	/// <param name="value">Block should be red (true) or blue (false)</param>
 	public void SetPolarity(bool value)
 	{
-		Debug.Log(m_RedMaterial.name);
-		Debug.Log(m_BlueMaterial.name);
 		IsRed = value;
 		m_Renderer.material = IsRed ? m_RedMaterial : m_BlueMaterial;
 	}
