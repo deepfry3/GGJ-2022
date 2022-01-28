@@ -21,10 +21,25 @@ public class Block : MonoBehaviour
 	[SerializeField] bool m_GradualRolloff = false;
 	[Header("References")]
 	[SerializeField] SphereCollider m_SphereTrigger = null;
+	[SerializeField] Material m_RedMaterial = null;
+	[SerializeField] Material m_BlueMaterial = null;
+
+	// -- Cached Components --
+	private MeshRenderer m_Renderer = null;
 	#endregion
 	#endregion
 
 	#region Unity Functions
+	/// <summary>
+	/// Called on Awake.
+	/// Caches components.
+	/// </summary>
+	void Awake()
+	{
+		// Cache components
+		m_Renderer = GetComponent<MeshRenderer>();
+	}
+
 	/// <summary>
 	/// Called when another collider enters the trigger
 	/// </summary>
@@ -56,6 +71,25 @@ public class Block : MonoBehaviour
 	#endregion
 
 	#region Public Functions
+	/// <summary>
+	/// Sets the block to be red or blue.
+	/// </summary>
+	/// <param name="value">Block should be red (true) or blue (false)</param>
+	public void SetPolarity(bool value)
+	{
+		Debug.Log(m_RedMaterial.name);
+		Debug.Log(m_BlueMaterial.name);
+		IsRed = value;
+		m_Renderer.material = IsRed ? m_RedMaterial : m_BlueMaterial;
+	}
+
+	/// <summary>
+	/// Toggles the block between red and blue polarity.
+	/// </summary>
+	public void TogglePolarity()
+	{
+		SetPolarity(!IsRed);
+	}
 	#endregion
 
 	#region Private Functions
