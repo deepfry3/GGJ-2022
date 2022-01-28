@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlocksTouching: []
-  m_Speed: 11
-  m_Drag: 1
+  m_Speed: 9.5
+  m_Drag: 15
   m_Gravity: -9.81
   m_RedMaterial: {fileID: 2100000, guid: e41ca25d6d98be440bdf16fc5adde018, type: 2}
   m_BlueMaterial: {fileID: 2100000, guid: 8f64955de256b6d41b060ef05a0833a0, type: 2}
@@ -319,19 +319,51 @@ MonoBehaviour:
     m_ActionId: 2cf2de54-e9bc-45d6-a0dc-bc984c3df0f8
     m_ActionName: PlayerControls/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 885655353385915046}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnChangeInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ba185fb4-4d77-4975-b7ed-6e63dfed2cf8
     m_ActionName: PlayerControls/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f555223a-ce32-4d86-9268-55c7aa42cf74
-    m_ActionName: PlayerControls/Change[/Keyboard/ctrl]
-  - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 885655353385915046}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnLeftInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c1b8d3d6-3eaa-4259-ad5c-ad8b3ba31457
     m_ActionName: PlayerControls/Left[/Keyboard/a]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 885655353385915046}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnRightInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 58e913ae-728e-482f-a761-b628a254a43c
     m_ActionName: PlayerControls/Right[/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
@@ -351,7 +383,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 0.55
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.15
   m_SkinWidth: 0.0001

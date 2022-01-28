@@ -14,17 +14,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "ba185fb4-4d77-4975-b7ed-6e63dfed2cf8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Change",
                     "type": "Button",
-                    "id": "f555223a-ce32-4d86-9268-55c7aa42cf74",
+                    "id": "ba185fb4-4d77-4975-b7ed-6e63dfed2cf8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -164,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + Mouse",
-                    "action": "Jump",
+                    "action": "Change",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -175,28 +167,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d18f9592-7e9f-4784-a462-5069e199548e",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Change",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ca5ec29c-dbd1-4ab0-b9c7-e7b0767d9e77",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
                     "action": "Change",
                     "isComposite": false,
                     "isPartOfComposite": false

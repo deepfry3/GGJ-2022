@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
 
 	// -- Input --
 	private Vector2 m_InputMove = Vector2.zero;
-	private bool m_InputJump = false;
 	private bool m_InputChange = false;
 
 	// -- Misc. --
@@ -179,17 +178,6 @@ public class Player : MonoBehaviour
 	{
 		if (value.started)
 			ChangeLane(true);
-	}
-
-	/// <summary>
-	/// Called on Player invoking the 'Jump' PlayerAction.
-	/// Stores button held state in a private variable, and queues a jump as required.
-	/// </summary>
-	/// <param name="value">Information returned on that action by the Input System</param>
-	public void OnJumpInput(InputAction.CallbackContext value)
-	{
-		// Store button held state
-		m_InputJump = (value.started ? true : value.canceled ? false : m_InputJump);
 	}
 
 	/// <summary>

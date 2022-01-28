@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
 	// -- Misc --
 	List<Block> m_BlockList = new List<Block>();
+	private float m_FurthestDistanceSpawned = 0.0f;
 	#endregion
 	#endregion
 
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
 	void Update()
 	{
 		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#") + "m";
+
+		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
+			SpawnBlockRow();
 	}
 	#endregion
 
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour
 			m_BlockList.RemoveAt(i);
 		}
 		m_BlockList.Clear();
+		m_FurthestDistanceSpawned = 0.0f;
 
 		// Create new blocks
 		SpawnBlocks();
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour
 	{
 		float z = 38.75f;
 		float x = -3.0f;
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
@@ -89,7 +94,30 @@ public class GameManager : MonoBehaviour
 					newBlock.TogglePolarity();
 
 				m_BlockList.Add(newBlock);
+
+				m_FurthestDistanceSpawned = z + (i * 11.0f);
 			}
+		}
+	}
+
+	private void SpawnBlockRow()
+	{
+		float z = m_FurthestDistanceSpawned + 11.0f;
+		float x = -3.0f;
+		for (int j = 0; j < 3; j++)
+		{
+			if (Random.value < 0.3f)
+				continue;
+
+			// Spawn new block
+			float ySpawn = -10.0f - Random.Range(10.0f, 40.0f);
+			Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z);
+			Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+			if (Random.value < 0.5f)
+				newBlock.TogglePolarity();
+
+			m_BlockList.Add(newBlock);
+			m_FurthestDistanceSpawned = z;
 		}
 	}
 	#endregion
