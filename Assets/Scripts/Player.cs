@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
 	/// </summary>
 	public void Reset()
 	{
-		transform.position = new Vector3(0.0f, 0.85f, 0.0f);
+		transform.position = new Vector3(0.0f, 1.5f, 0.0f);
 
 		m_DeathTimer = -1.0f;
 	}

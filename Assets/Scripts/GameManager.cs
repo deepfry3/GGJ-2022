@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		float z = 20.75f;
+		float z = 38.75f;
 		float x = -3.0f;
 		for (int i = 0; i < 10; i++)
 		{
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 		m_BlockList.Clear();
 
 		// Create new blocks
-		float z = 20.75f;
+		float z = 38.75f;
 		float x = -3.0f;
 		for (int i = 0; i < 10; i++)
 		{
