@@ -43,25 +43,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		float z = 38.75f;
-		float x = -3.0f;
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				if (Random.value < 0.5f)
-					continue;
-
-				// Spawn new block
-				float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 10.0f));
-				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-				if (Random.value < 0.5f)
-					newBlock.TogglePolarity();
-
-				m_BlockList.Add(newBlock);
-			}
-		}
+		SpawnBlocks();
 	}
 
 	void Update()
@@ -85,17 +67,23 @@ public class GameManager : MonoBehaviour
 		m_BlockList.Clear();
 
 		// Create new blocks
+		SpawnBlocks();
+	}
+
+	private void SpawnBlocks()
+	{
 		float z = 38.75f;
 		float x = -3.0f;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (Random.value < 0.5f)
+				if (Random.value < 0.3f)
 					continue;
 
 				// Spawn new block
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), 0.0f, z + (i * 10.0f));
+				float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 11.0f));
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
 					newBlock.TogglePolarity();
@@ -104,6 +92,5 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
-
 	#endregion
 }

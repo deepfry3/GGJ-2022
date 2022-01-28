@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 		#endregion
 
 		#region Death
-		if (transform.position.y < -8.0f && m_ForceMoveVelocity.y < -10.0f && m_DeathTimer == -1.0f)
+		if (transform.position.y < -10.0f && m_ForceMoveVelocity.y < -10.0f && m_DeathTimer == -1.0f)
 		{
 			m_DeathTimer = 2.0f;
 			m_AudioSource.PlayOneShot(m_DeathSound);
