@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
+	[Header("Audio")]
+	[SerializeField] AudioClip m_DeathSound = null;
 
 	// -- Cached Components
 	private PlayerInput m_Input = null;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
 
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
+	private float m_DeathTimer = -1.0f;
 	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
 	#endregion
 	#endregion
@@ -121,6 +124,22 @@ public class Player : MonoBehaviour
 			m_CharController.Move(moveVec * Time.deltaTime);
 		}
 		#endregion
+
+		#region Death
+		if (transform.position.y < -2.0f && m_ForceMoveVelocity.y < -5.0f && m_DeathTimer == -1.0f)
+		{
+			m_DeathTimer = 2.0f;
+			m_AudioSource.PlayOneShot(m_DeathSound);
+		}
+		if (m_DeathTimer > 0.0f)
+		{
+			m_DeathTimer -= Time.deltaTime;
+			if (m_DeathTimer <= 0.0f)
+			{
+				GameManager.Instance.Restart();
+			}
+		}
+		#endregion
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -192,6 +211,16 @@ public class Player : MonoBehaviour
 	public void AddForce(Vector3 force)
 	{
 		m_ForceMoveVelocity += force;
+	}
+
+	/// <summary>
+	/// Resets the player to the original speed and position
+	/// </summary>
+	public void Reset()
+	{
+		transform.position = new Vector3(0.0f, 0.85f, 0.0f);
+
+		m_DeathTimer = -1.0f;
 	}
 	#endregion
 

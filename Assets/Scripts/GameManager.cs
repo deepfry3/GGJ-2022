@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
 	// -- Input --
 
+	// -- Misc --
+	List<Block> m_BlockList = new List<Block>();
 	#endregion
 	#endregion
 
@@ -37,11 +39,8 @@ public class GameManager : MonoBehaviour
 		Instance = this;
 	}
 
-	#endregion
-
-	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		float z = 20.75f;
 		float x = -3.0f;
 		for (int i = 0; i < 10; i++)
@@ -56,13 +55,47 @@ public class GameManager : MonoBehaviour
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
 					newBlock.TogglePolarity();
+
+				m_BlockList.Add(newBlock);
 			}
 		}
-    }
+	}
+	#endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	#region Public Functions
+	public void Restart()
+	{
+		// Reset player
+		PlayerObject.GetComponent<Player>().Reset();
+
+		// Reset blocks
+		for (int i = m_BlockList.Count - 1; i >= 0; i--)
+		{
+			Destroy(m_BlockList[i].gameObject);
+			m_BlockList.RemoveAt(i);
+		}
+		m_BlockList.Clear();
+
+		// Create new blocks
+		float z = 20.75f;
+		float x = -3.0f;
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (Random.value < 0.5f)
+					continue;
+
+				// Spawn new block
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), 0.0f, z + (i * 10.0f));
+				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+				if (Random.value < 0.5f)
+					newBlock.TogglePolarity();
+
+				m_BlockList.Add(newBlock);
+			}
+		}
+	}
+
+	#endregion
 }
