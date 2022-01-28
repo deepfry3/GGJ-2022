@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 	// -- Properties --
 	public bool IsGrounded { get; private set; }
 	public bool LastGrounded { get; private set; }
+	public bool IsRed { get; private set; } = true;
 	#endregion
 
 	#region Private
@@ -35,8 +36,7 @@ public class Player : MonoBehaviour
 
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
-	private Vector3 m_ForceMoveVelocity = Vector3.zero;
-	private bool m_IsRed = true;
+	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
 	#endregion
 	#endregion
 
@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
 			Transform hitTransform = groundHit.transform;
 			if (groundHit.transform.tag == "Block")
 			{
-				// Do something when touch block
 			}
 		}
 		#endregion
@@ -109,6 +108,11 @@ public class Player : MonoBehaviour
 		}
 		#endregion
 	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		Debug.Log("COLLISION");
+	}
 	#endregion
 
 	#region Input Actions
@@ -144,6 +148,17 @@ public class Player : MonoBehaviour
 	}
 	#endregion
 
+	#region Public Functions
+	/// <summary>
+	/// Adds the specified amount of force to the player's velocity.
+	/// </summary>
+	/// <param name="force">Vector3 of forces to apply</param>
+	public void AddForce(Vector3 force)
+	{
+		m_ForceMoveVelocity += force;
+	}
+	#endregion
+
 	#region Private Functions
 	/// <summary>
 	/// Returns the sign of the specified float (-1, 0, or 1).
@@ -160,8 +175,8 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void TogglePolarity()
 	{
-		m_Renderer.material = m_IsRed ? m_BlueMaterial : m_RedMaterial;
-		m_IsRed = !m_IsRed;
+		m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
+		IsRed = !IsRed;
 	}
 	#endregion
 }
