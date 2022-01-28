@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	public bool IsGrounded { get; private set; }
 	public bool LastGrounded { get; private set; }
 	public bool IsRed { get; private set; } = true;
+	public List<GameObject> BlocksTouching = new List<GameObject>();
 	#endregion
 
 	#region Private
@@ -68,6 +69,17 @@ public class Player : MonoBehaviour
 			if (groundHit.transform.tag == "Block")
 			{
 			}
+		}
+
+		// Update if touching box
+		Vector3 boxExtents = GetComponent<BoxCollider>().size / 2.0f;
+		boxExtents.x += 0.1f; boxExtents.y += 0.1f; boxExtents.z += 0.1f;
+		Collider[] colliders = Physics.OverlapBox(transform.position, boxExtents, Quaternion.identity, int.MaxValue, QueryTriggerInteraction.Ignore);
+		BlocksTouching.Clear();
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			if (colliders[i].gameObject.tag == "Block")
+				BlocksTouching.Add(colliders[i].gameObject);
 		}
 		#endregion
 

@@ -7,17 +7,33 @@ public class GameManager : MonoBehaviour
 	#region Variables / Properties
 	#region Public
 	// -- Properties --
+	public Player PlayerObject { get => m_PlayerObject; }
+
+	// -- Singleton --
+	public static GameManager Instance { get; private set; }
 	#endregion
 
 	#region Private
 	// -- Editable in Inspector --
 	[Header("References")]
 	[SerializeField] Block m_BlockPrefab = null;
+	[SerializeField] Player m_PlayerObject = null;
 	// -- Cached Components
 
 	// -- Input --
 
 	#endregion
+	#endregion
+
+	#region Unity Functions
+	/// <summary>
+	/// Initializes singleton.
+	/// </summary>
+	void Awake()
+	{
+		Instance = this;
+	}
+
 	#endregion
 
 	// Start is called before the first frame update

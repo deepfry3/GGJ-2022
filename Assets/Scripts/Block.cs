@@ -8,7 +8,7 @@ public class Block : MonoBehaviour
 	#region Public
 	// -- Properties --
 	public bool IsRed { get => m_IsRed; set => m_IsRed = value; }
-	public bool TouchingPlayer { get; set; }
+	public bool TouchingPlayer { get => GameManager.Instance.PlayerObject.BlocksTouching.Contains(gameObject); }
 	#endregion
 
 	#region Private
@@ -65,7 +65,7 @@ public class Block : MonoBehaviour
 			force = -force;
 
 		// Apply force
-		if (!TouchingPlayer)
+		if (!TouchingPlayer || IsRed)
 			obj.GetComponent<Player>().AddForce(force);
 	}
 	#endregion
