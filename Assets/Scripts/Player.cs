@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
 			if (Sign(m_ForceMoveVelocity.z) != Sign(prev.z))
 				m_ForceMoveVelocity.z = 0.0f;
 		}
+
 		#endregion
 
 
@@ -110,6 +111,7 @@ public class Player : MonoBehaviour
 		#region Perform movement
 		// Get movement vector based on player input
 		Vector3 moveVec = new Vector3(m_InputMove.x, 0.0f, m_InputMove.y) * m_Speed;
+		moveVec = new Vector3(0.0f, 0.0f, m_Speed);
 
 		// Add velocity and slight downwards force so Move always does something (fixes RB collisions)
 		moveVec += m_ForceMoveVelocity;
@@ -136,6 +138,28 @@ public class Player : MonoBehaviour
 	public void OnMoveInput(InputAction.CallbackContext value)
 	{
 		m_InputMove = Vector2.ClampMagnitude(value.ReadValue<Vector2>(), 1.0f);
+	}
+
+	/// <summary>
+	/// Called on Player invoking the 'Left' PlayerAction.
+	/// Player moves left one lane.
+	/// </summary>
+	/// <param name="value">Information returned on that action by the Input System</param>
+	public void OnLeftInput(InputAction.CallbackContext value)
+	{
+		if (value.started)
+			ChangeLane(false);
+	}
+
+	/// <summary>
+	/// Called on Player invoking the 'Left' PlayerAction.
+	/// Player moves right one lane.
+	/// </summary>
+	/// <param name="value">Information returned on that action by the Input System</param>
+	public void OnRightInput(InputAction.CallbackContext value)
+	{
+		if (value.started)
+			ChangeLane(true);
 	}
 
 	/// <summary>
@@ -189,6 +213,18 @@ public class Player : MonoBehaviour
 	{
 		m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		IsRed = !IsRed;
+	}
+
+	/// <summary>
+	/// Moves the player left or right one lane, if applicable.
+	/// </summary>
+	/// <param name="value">Move left (false) or right (true)</param>
+	private void ChangeLane(bool value)
+	{
+		if (value)
+			m_CharController.Move(new Vector3(2.0f, 0.0f, 0.0f));
+		else
+			m_CharController.Move(new Vector3(-2.0f, 0.0f, 0.0f));
 	}
 	#endregion
 }

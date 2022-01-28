@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 	#region Public
 	// -- Properties --
 	public Player PlayerObject { get => m_PlayerObject; }
+	public int Lanes { get => m_Lanes; }
 
 	// -- Singleton --
 	public static GameManager Instance { get; private set; }
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
 
 	#region Private
 	// -- Editable in Inspector --
+	[Header("Parameters")]
+	[SerializeField] int m_Lanes = 2;
 	[Header("References")]
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
