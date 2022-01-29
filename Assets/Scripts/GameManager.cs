@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 	[Header("Parameters")]
 	[SerializeField] int m_Lanes = 2;
 	[Header("References")]
+	[SerializeField] GameObject m_TutorialPanel = null;
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
 	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
 	List<GameObject> m_WallList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
+	private float m_TutorialCountdown = 1.0f;
 	#endregion
 	#endregion
 
@@ -49,10 +52,22 @@ public class GameManager : MonoBehaviour
 	{
 		SpawnBlocks(true);
 		SpawnWalls(true);
+
+		Time.timeScale = 0.0f;
 	}
 
 	void Update()
 	{
+		if (m_TutorialCountdown > 0.0f)
+		{
+			m_TutorialCountdown -= Time.unscaledDeltaTime;
+			if (m_TutorialCountdown <= 0.0f)
+			{
+				Time.timeScale = 1.0f;
+				m_TutorialPanel.SetActive(false);
+			}
+		}
+
 		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#") + "m";
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
@@ -99,8 +114,15 @@ public class GameManager : MonoBehaviour
 		
 		for (int i = 0; i < (fromScratch ? 5 : 1); i++)
 		{
-			bool[] topRow = { Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1 };
-			bool[] bottomRow = { Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1 };
+			bool[] topRow = new bool[3], bottomRow = new bool[3];
+			do
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					topRow[j] = Random.Range(0, 2) == 1;
+					bottomRow[j] = Random.Range(0, 2) == 1;
+				}
+			} while ((topRow[0] || topRow[1] || topRow[2]) && (bottomRow[0] || bottomRow[1] || bottomRow[2]));
 
 			for (int j = 0; j < 3; j++)
 			{

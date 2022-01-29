@@ -115,12 +115,10 @@ public class Block : MonoBehaviour
 		// Massage force as required
 		Vector3 playerForce = player.ForceVelocity;
 		float massagedY = force.y, massagedZ = force.z;
-		if (playerForce.y < 0.1f && force.y > 0.0f)         // If falling and being pulled up, get pulled up stronger
-			massagedY *= 4.0f;
+		if (playerForce.y <= 0.1f && force.y > 0.0f)         // If falling and being pulled up, get pulled up stronger
+			massagedY *= 10.0f;
 		else if (playerForce.y > 0.1f && force.y > 0.0f)    // If flinging up and being pulled up, get pulled up weaker
 			massagedY *= 0.55f;
-		else if (force.y > 0.0f)							// If still and being pulled up, get pulled up stronger
-			massagedY *= 15.0f;
 		if (force.z > 0.0f)									// If being pulled forward, get pulled stronger
 			massagedZ *= 4.0f;
 
