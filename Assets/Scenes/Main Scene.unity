@@ -289,6 +289,7 @@ MonoBehaviour:
   m_RedMaterial: {fileID: 0}
   m_BlueMaterial: {fileID: 0}
   m_AudioSource: {fileID: 0}
+  m_Renderers: []
   m_MagnetAttractSound: {fileID: 0}
   m_MagnetRepelSound: {fileID: 0}
 --- !u!65 &339783370

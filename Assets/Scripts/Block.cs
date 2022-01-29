@@ -24,6 +24,7 @@ public class Block : MonoBehaviour
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] AudioSource m_AudioSource = null;
+	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip m_MagnetAttractSound = null;
 	[SerializeField] AudioClip m_MagnetRepelSound = null;
@@ -150,6 +151,8 @@ public class Block : MonoBehaviour
 	public void SetPolarity(bool value)
 	{
 		IsRed = value;
+		for (int i = 0; i < m_Renderers.Length; i++)
+			m_Renderers[i].material = IsRed ? m_RedMaterial : m_BlueMaterial;
 		m_Renderer.material = IsRed ? m_RedMaterial : m_BlueMaterial;
 	}
 
