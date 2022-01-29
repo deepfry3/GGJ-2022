@@ -66,14 +66,14 @@ public class Block : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
-		if (transform.position.y != 0.0f & transform.position.y < 0.0f)
+		if (transform.position.y < 0.0f)
 		{
 			Vector3 target = new Vector3(transform.position.x, 0.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
-		else if (transform.position.y != 14.0f & transform.position.y > 0.0f)
+		else if (transform.position.y > 18.0f)
 		{
-			Vector3 target = new Vector3(transform.position.x, 14.0f, transform.position.z);
+			Vector3 target = new Vector3(transform.position.x, 18.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
 	}
@@ -122,17 +122,14 @@ public class Block : MonoBehaviour
 		if (force.z > 0.0f)									// If being pulled forward, get pulled stronger
 			massagedZ *= 4.0f;
 
+		// Stronger repel
+		if (player.transform.position.y > transform.position.y && force.y > 0.0f)
+			massagedY *= 2.0f;
+
 		// Apply force
-		if (player.AttachedToBlock && player.IsRed == IsRed)
-		{
-			player.SetForce(force * 5.0f);
-		}
-		else
-		{
-			force = new Vector3(force.x, massagedY, massagedZ);
-			if (!TouchingPlayer || IsRed == GameManager.Instance.PlayerObject.GetComponent<Player>().IsRed)
-				obj.GetComponent<Player>().AddForce(force);
-		}
+		force = new Vector3(force.x, massagedY, massagedZ);
+		if (!TouchingPlayer || IsRed == GameManager.Instance.PlayerObject.GetComponent<Player>().IsRed)
+			obj.GetComponent<Player>().AddForce(force);
 
 		// Render line
 		m_LineRenderer.SetPositions(new Vector3[] {

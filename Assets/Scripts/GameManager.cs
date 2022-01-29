@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Set initial spawn points
-		float spacing = PlayerObject.GetComponent<Player>().Speed * 3.0f;
+		float spacing = PlayerObject.GetComponent<Player>().Speed + 15.0f;
 		float x = -3.0f;
 		float z = m_FurthestDistanceSpawned + spacing;
 		
@@ -117,11 +117,8 @@ public class GameManager : MonoBehaviour
 			bool[] topRow = new bool[3], bottomRow = new bool[3];
 			do
 			{
-				for (int j = 0; j < 3; j++)
-				{
-					topRow[j] = Random.Range(0, 2) == 1;
-					bottomRow[j] = Random.Range(0, 2) == 1;
-				}
+				topRow[0] = Random.Range(0, 2) == 1; topRow[1] = Random.Range(0, 2) == 1; topRow[2] = Random.Range(0, 2) == 1;
+				bottomRow[0] = Random.Range(0, 2) == 1; bottomRow[1] = Random.Range(0, 2) == 1; bottomRow[2] = Random.Range(0, 2) == 1;
 			} while ((topRow[0] || topRow[1] || topRow[2]) && (bottomRow[0] || bottomRow[1] || bottomRow[2]));
 
 			for (int j = 0; j < 3; j++)
