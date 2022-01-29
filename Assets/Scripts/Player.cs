@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 	public bool AttachedToBlock { get => m_AttachedToBox; }
 	public Vector3 ForceVelocity { get => m_ForceMoveVelocity; }
 	public float Speed { get => m_Speed; }
+	public float JumpTimer { get => m_CanJumpTimer; set => m_CanJumpTimer = value; }
 	#endregion
 
 	#region Private
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
 	private float m_StartSpeed = 0.0f;
 	private float m_DeathTimer = -1.0f;
 	private bool m_AttachedToBox = false;
+	private float m_CanJumpTimer = 2.5f;
 	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
 	#endregion
 	#endregion
@@ -100,8 +102,14 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		// Update speed
+		// Update speed and jump timer
 		m_Speed += Time.deltaTime / 3.0f;
+		if (m_CanJumpTimer > 0.0f)
+		{
+			m_CanJumpTimer -= Time.deltaTime;
+			if (m_CanJumpTimer < 0.0f)
+				m_CanJumpTimer = 0.0f;
+		}
 		#endregion
 
 		#region Movement
@@ -232,7 +240,11 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnJumpInput(InputAction.CallbackContext value)
 	{
-		//
+		if (value.started && !IsGrounded && m_CanJumpTimer == 0.0f)
+		{
+			m_ForceMoveVelocity += new Vector3(0.0f, 7.5f, 0.0f);
+			m_CanJumpTimer = -1.0f;
+		}
 	}
 	#endregion
 

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 	#region Private
 	// -- Editable in Inspector --
 	[Header("Parameters")]
+	[SerializeField] bool m_SkipTutorial = false;
 	[SerializeField] int m_Lanes = 2;
 	[Header("References")]
 	[SerializeField] GameObject m_TutorialPanel = null;
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 	List<GameObject> m_WallList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
-	private float m_TutorialCountdown = 1.0f;
+	private float m_TutorialCountdown = 7.5f;
 	#endregion
 	#endregion
 
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
 		if (m_TutorialCountdown > 0.0f)
 		{
 			m_TutorialCountdown -= Time.unscaledDeltaTime;
+			if (m_SkipTutorial)
+				m_TutorialCountdown = 0.0f;
 			if (m_TutorialCountdown <= 0.0f)
 			{
 				Time.timeScale = 1.0f;
@@ -120,9 +123,6 @@ public class GameManager : MonoBehaviour
 				topRow[0] = Random.Range(0, 2) == 1; topRow[1] = Random.Range(0, 2) == 1; topRow[2] = Random.Range(0, 2) == 1;
 				bottomRow[0] = Random.Range(0, 2) == 1; bottomRow[1] = Random.Range(0, 2) == 1; bottomRow[2] = Random.Range(0, 2) == 1;
 			} while ((!topRow[0] && !topRow[1] && !topRow[2]) || (!bottomRow[0] && !bottomRow[1] && !bottomRow[2]));
-
-
-
 
 			for (int j = 0; j < 3; j++)
 			{

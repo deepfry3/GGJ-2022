@@ -1329,6 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f918333da224418bf0f671281f273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SkipTutorial: 1
   m_Lanes: 2
   m_TutorialPanel: {fileID: 1675162704}
   m_BlockPrefab: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
@@ -2074,7 +2075,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'A OR D - MOVE
 
-    SPACE - CHANGE POLARITY'
+    SPACE - CHANGE POLARITY
+
+    CTRL - AIR JUMP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 745f5e40d845f244da8d8a8310aaa7cd, type: 2}
   m_sharedMaterial: {fileID: 370949821853143024, guid: 745f5e40d845f244da8d8a8310aaa7cd, type: 2}
@@ -2101,8 +2104,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.8
-  m_fontSizeBase: 37.8
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2113,7 +2116,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 35
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
