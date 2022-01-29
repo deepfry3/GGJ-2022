@@ -189,11 +189,17 @@ public class GameManager : MonoBehaviour
 		float z = m_FurthestWallSpawned + 25.0f;
 		for (int i = 0; i < 50; i++)
 		{
-			Vector3 spawnPos = new Vector3(-30.0f, 0.0f, z + (i * 25.0f));
-			GameObject newWall = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPos, Quaternion.identity);
-			
-			m_WallList.Add(newWall);
-			m_FurthestWallSpawned = spawnPos.z;
+			for (int j = -1; j < 2; j++)
+			{
+				Vector3 spawnPosL = new Vector3(-35.0f, (j * 25.0f), z + (i * 25.0f));
+				Vector3 spawnPosR = new Vector3(35.0f, (j * 25.0f), z + (i * 25.0f));
+				GameObject newWallL = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPosL, Quaternion.identity);
+				GameObject newWallR = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPosR, Quaternion.Euler(new Vector3(0.0f, 180.0f, 0.0f)));
+
+				m_WallList.Add(newWallL);
+				m_WallList.Add(newWallR);
+				m_FurthestWallSpawned = spawnPosL.z;
+			}
 		}
 	}
 	#endregion

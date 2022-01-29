@@ -213,13 +213,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80179625}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.5248997, y: -0.07543971, z: 0.031273957, w: 0.8472374}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 63.399, y: -12.249, z: -3.355}
 --- !u!1 &339783366
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7969344724234412282, guid: 160ad56e763462644bf1c0e6478b42cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 160ad56e763462644bf1c0e6478b42cf, type: 3}
 --- !u!1 &1250973405
@@ -976,7 +980,7 @@ MonoBehaviour:
   m_PlayerObject: {fileID: 1569947633}
   m_DistanceCounter: {fileID: 800839791}
   m_WallPrefabs:
-  - {fileID: 6293785748035906095, guid: 72d96f0bc1095e3479bd2e263abd6f80, type: 3}
+  - {fileID: 3835130989803838177, guid: 72d96f0bc1095e3479bd2e263abd6f80, type: 3}
 --- !u!4 &1250973407
 Transform:
   m_ObjectHideFlags: 0
