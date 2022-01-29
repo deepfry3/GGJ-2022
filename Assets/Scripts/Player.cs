@@ -153,11 +153,11 @@ public class Player : MonoBehaviour
 		#endregion
 
 		#region Trick
-		if (m_ForceMoveVelocity.y > 20.0f && m_Model.transform.localEulerAngles.y == 0.0f)
-		{
-			m_AudioSource.PlayOneShot(m_TrickSound);
-			m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, 0.01f, m_Model.transform.localEulerAngles.z);
-		}
+		//if (m_ForceMoveVelocity.y > 20.0f && m_Model.transform.localEulerAngles.y == 0.0f)
+		//{
+		//	m_AudioSource.PlayOneShot(m_TrickSound);
+		//	m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, 0.01f, m_Model.transform.localEulerAngles.z);
+		//}
 
 		if (m_Model.transform.localEulerAngles.y != 0.0f)
 		{
@@ -268,6 +268,10 @@ public class Player : MonoBehaviour
 			// Apply force and reset timer
 			m_ForceMoveVelocity += new Vector3(0.0f, y, z);
 			m_CanJumpTimer = -1.0f;
+
+			// Start trick
+			m_AudioSource.PlayOneShot(m_TrickSound);
+			m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, 0.01f, m_Model.transform.localEulerAngles.z);
 		}
 	}
 	#endregion
