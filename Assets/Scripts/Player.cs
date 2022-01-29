@@ -209,6 +209,10 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnLeftInput(InputAction.CallbackContext value)
 	{
+		// Early-exit
+		if (Time.timeScale == 0.0f)
+			return;
+
 		if (value.started)
 			ChangeLane(false);
 	}
@@ -220,6 +224,10 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnRightInput(InputAction.CallbackContext value)
 	{
+		// Early-exit
+		if (Time.timeScale == 0.0f)
+			return;
+
 		if (value.started)
 			ChangeLane(true);
 	}
@@ -230,7 +238,9 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnChangeInput(InputAction.CallbackContext value)
 	{
-		if (value.started)
+		if (value.started && Time.timeScale == 0.0f)
+			GameManager.Instance.SkipTutorial();
+		else if (value.started)
 			TogglePolarity();
 	}
 
@@ -240,6 +250,10 @@ public class Player : MonoBehaviour
 	/// <param name="value">Information returned on that action by the Input System</param>
 	public void OnJumpInput(InputAction.CallbackContext value)
 	{
+		// Early-exit
+		if (Time.timeScale == 0.0f)
+			return;
+
 		if (value.started && !IsGrounded && m_CanJumpTimer == 0.0f)
 		{
 			// Force values

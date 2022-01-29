@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 	[Header("Parameters")]
 	[SerializeField] bool m_SkipTutorial = false;
 	[Header("References")]
+	[SerializeField] AudioSource m_EnvironmentAudioSource = null;
+	[SerializeField] AudioSource m_MusicAudioSource = null;
 	[SerializeField] GameObject m_TutorialPanel = null;
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
@@ -34,7 +36,6 @@ public class GameManager : MonoBehaviour
 	List<GameObject> m_WallList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
-	private float m_TutorialCountdown = 7.5f;
 	#endregion
 	#endregion
 
@@ -57,18 +58,6 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if (m_TutorialCountdown > 0.0f)
-		{
-			m_TutorialCountdown -= Time.unscaledDeltaTime;
-			if (m_SkipTutorial)
-				m_TutorialCountdown = 0.0f;
-			if (m_TutorialCountdown <= 0.0f)
-			{
-				Time.timeScale = 1.0f;
-				m_TutorialPanel.SetActive(false);
-			}
-		}
-
 		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#");
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
@@ -90,6 +79,18 @@ public class GameManager : MonoBehaviour
 		SpawnWalls(true);
 	}
 
+	/// <summary>
+	/// Skips the tutorial if currently open
+	/// </summary>
+	public void SkipTutorial()
+	{
+		Time.timeScale = 1.0f;
+		m_TutorialPanel.SetActive(false);
+		m_EnvironmentAudioSource.Play();
+	}
+	#endregion
+
+	#region Private Functions
 	/// <summary>
 	/// Creates block walls.
 	/// </summary>
