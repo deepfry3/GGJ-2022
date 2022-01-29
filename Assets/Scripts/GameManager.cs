@@ -23,13 +23,16 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
 	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
+	[SerializeField] GameObject[] m_WallPrefabs = null;
 	// -- Cached Components
 
 	// -- Input --
 
 	// -- Misc --
 	List<Block> m_BlockList = new List<Block>();
+	List<GameObject> m_WallList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
+	private float m_FurthestWallSpawned = 0.0f;
 	#endregion
 	#endregion
 
@@ -44,7 +47,8 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		SpawnBlocks();
+		SpawnBlocks(true);
+		SpawnWalls(true);
 	}
 
 	void Update()
@@ -52,7 +56,10 @@ public class GameManager : MonoBehaviour
 		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#") + "m";
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
-			SpawnBlockRow();
+			SpawnBlocks();
+
+		if (m_PlayerObject.transform.position.z >= m_FurthestWallSpawned - 750.0f)
+			SpawnWalls();
 	}
 	#endregion
 
@@ -62,24 +69,79 @@ public class GameManager : MonoBehaviour
 		// Reset player
 		PlayerObject.GetComponent<Player>().Reset();
 
-		// Reset blocks
-		for (int i = m_BlockList.Count - 1; i >= 0; i--)
-		{
-			Destroy(m_BlockList[i].gameObject);
-			m_BlockList.RemoveAt(i);
-		}
-		m_BlockList.Clear();
-		m_FurthestDistanceSpawned = 0.0f;
-
-		// Create new blocks
-		SpawnBlocks();
+		// Reset and create new blocks
+		SpawnBlocks(true);
 	}
 
-	private void SpawnBlocks()
+	//private void SpawnBlocks()
+	//{
+	//	float z = 28.75f;
+	//	float x = -3.0f;
+	//	for (int i = 0; i < 5; i++)
+	//	{
+	//		for (int j = 0; j < 3; j++)
+	//		{
+	//			if (Random.value < 0.3f)
+	//				continue;
+
+	//			// Spawn new block
+	//			float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
+	//			Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + ((i + 1) * 30.0f));
+	//			Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+	//			if (Random.value < 0.5f)
+	//				newBlock.TogglePolarity();
+
+	//			m_BlockList.Add(newBlock);
+
+	//			m_FurthestDistanceSpawned = z + (i * 11.0f);
+	//		}
+	//	}
+	//}
+
+	//private void SpawnBlockRow()
+	//{
+	//	float z = m_FurthestDistanceSpawned + 30.0f;
+	//	float x = -3.0f;
+	//	for (int j = 0; j < 3; j++)
+	//	{
+	//		if (Random.value < 0.3f)
+	//			continue;
+
+	//		// Spawn new block
+	//		float ySpawn = -10.0f - Random.Range(10.0f, 40.0f);
+	//		Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z);
+	//		Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+	//		if (Random.value < 0.5f)
+	//			newBlock.TogglePolarity();
+
+	//		m_BlockList.Add(newBlock);
+	//		m_FurthestDistanceSpawned = z;
+	//	}
+	//}
+
+	/// <summary>
+	/// Creates block walls.
+	/// </summary>
+	/// <param name="fromScratch">Erases all existing blocks and creates a few from the starting position.</param>
+	private void SpawnBlocks(bool fromScratch = false)
 	{
-		float z = 28.75f;
+		// Clear existing blocks if spawning from scratch
+		if (fromScratch)
+		{
+			for (int i = m_BlockList.Count - 1; i >= 0; i--)
+			{
+				Destroy(m_BlockList[i].gameObject);
+				m_BlockList.RemoveAt(i);
+			}
+			m_BlockList.Clear();
+			m_FurthestDistanceSpawned = 28.75f;
+		}
+
+		// Set initial spawn points
 		float x = -3.0f;
-		for (int i = 0; i < 5; i++)
+		float z = m_FurthestDistanceSpawned + 30.0f;
+		
+		for (int i = 0; i < (fromScratch ? 5 : 1); i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
@@ -87,37 +149,51 @@ public class GameManager : MonoBehaviour
 					continue;
 
 				// Spawn new block
-				float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + ((i + 1) * 30.0f));
+				float ySpawn = -10.0f - (fromScratch ? (10.0f * i) - (10.0f * j) : Random.Range(10.0f, 40.0f));
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 30.0f));
+
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
 					newBlock.TogglePolarity();
 
 				m_BlockList.Add(newBlock);
-
-				m_FurthestDistanceSpawned = z + (i * 11.0f);
+				m_FurthestDistanceSpawned = spawnPos.z;
 			}
 		}
+		Debug.Log(m_FurthestDistanceSpawned);
 	}
 
-	private void SpawnBlockRow()
+	/// <summary>
+	/// Culls walls currently out of view, and creates enough walls to see into the distance.
+	/// </summary>
+	/// <param name="fromScratch">Erases all existing walls and creates from the starting position</param>
+	private void SpawnWalls(bool fromScratch = false)
 	{
-		float z = m_FurthestDistanceSpawned + 30.0f;
-		float x = -3.0f;
-		for (int j = 0; j < 3; j++)
+		// Cull all walls that are out of view
+		if (m_WallList != null)
 		{
-			if (Random.value < 0.3f)
-				continue;
+			for (int i = m_WallList.Count - 1; i >= 0; i--)
+			{
+				if (fromScratch || m_WallList[i].transform.position.z < PlayerObject.transform.position.z - 50.0f)
+				{
+					Destroy(m_WallList[i]);
+					m_WallList.RemoveAt(i);
+				}
+			}
+		}
 
-			// Spawn new block
-			float ySpawn = -10.0f - Random.Range(10.0f, 40.0f);
-			Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z);
-			Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-			if (Random.value < 0.5f)
-				newBlock.TogglePolarity();
+		if (fromScratch)
+			m_FurthestWallSpawned = -25.0f;
 
-			m_BlockList.Add(newBlock);
-			m_FurthestDistanceSpawned = z;
+		// Create new walls
+		float z = m_FurthestWallSpawned + 25.0f;
+		for (int i = 0; i < 50; i++)
+		{
+			Vector3 spawnPos = new Vector3(-30.0f, 0.0f, z + (i * 25.0f));
+			GameObject newWall = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPos, Quaternion.identity);
+			
+			m_WallList.Add(newWall);
+			m_FurthestWallSpawned = spawnPos.z;
 		}
 	}
 	#endregion

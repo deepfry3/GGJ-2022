@@ -975,6 +975,8 @@ MonoBehaviour:
   m_BlockPrefab: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
   m_PlayerObject: {fileID: 1569947633}
   m_DistanceCounter: {fileID: 800839791}
+  m_WallPrefabs:
+  - {fileID: 6293785748035906095, guid: 72d96f0bc1095e3479bd2e263abd6f80, type: 3}
 --- !u!4 &1250973407
 Transform:
   m_ObjectHideFlags: 0

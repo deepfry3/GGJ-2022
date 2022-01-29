@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
+	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip m_DeathSound = null;
 
@@ -251,6 +252,8 @@ public class Player : MonoBehaviour
 	private void TogglePolarity()
 	{
 		m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
+		for (int i = 0; i < m_Renderers.Length; i++)
+			m_Renderers[i].material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		IsRed = !IsRed;
 	}
 
