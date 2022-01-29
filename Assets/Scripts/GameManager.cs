@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#") + "m";
+		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#");
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
 			SpawnBlocks();
@@ -120,6 +120,9 @@ public class GameManager : MonoBehaviour
 				topRow[0] = Random.Range(0, 2) == 1; topRow[1] = Random.Range(0, 2) == 1; topRow[2] = Random.Range(0, 2) == 1;
 				bottomRow[0] = Random.Range(0, 2) == 1; bottomRow[1] = Random.Range(0, 2) == 1; bottomRow[2] = Random.Range(0, 2) == 1;
 			} while ((topRow[0] || topRow[1] || topRow[2]) && (bottomRow[0] || bottomRow[1] || bottomRow[2]));
+
+
+
 
 			for (int j = 0; j < 3; j++)
 			{
