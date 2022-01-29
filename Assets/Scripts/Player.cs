@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[SerializeField] GameObject m_Model = null;
+	[SerializeField] Spinner m_CogSpinner = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip[] m_DeathSounds = null;
 	[SerializeField] AudioClip m_TrickSound = null;
@@ -327,10 +328,14 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void TogglePolarity()
 	{
+		// Change polarity
 		m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		for (int i = 0; i < m_Renderers.Length; i++)
 			m_Renderers[i].material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		IsRed = !IsRed;
+
+		// Update cog-spin direction
+		m_CogSpinner.SpinSpeed = new Vector3(0.0f, 0.0f, IsRed ? 250.0f : -250.0f);
 	}
 
 	/// <summary>

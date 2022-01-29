@@ -261,6 +261,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2943288123502039944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098875609549178998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db971f68f69872244b5e3fa2dc919655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpinSpeed: {x: 0, y: 0, z: 30}
+  m_MaxSpinSpeed: {x: 0, y: 0, z: 30}
+  m_MinSpinSpeed: {x: 0, y: 0, z: -30}
 --- !u!1 &7969344724234412282
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +408,7 @@ MonoBehaviour:
   - {fileID: 4766152494946932868}
   - {fileID: 4641791679002190429}
   m_Model: {fileID: 2453392335681774116}
+  m_CogSpinner: {fileID: 2943288123502039944}
   m_DeathSounds:
   - {fileID: 8300000, guid: 813f8fe18c1d8374d8155b38808fb5e9, type: 3}
   - {fileID: 8300000, guid: 9acf4acfe8c488043b77bf2d7271f8a9, type: 3}
@@ -916,6 +932,11 @@ Transform:
 --- !u!23 &6595856138225362377 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8449996119470504636, guid: 683094eed994e904a885d8663c7c39f7, type: 3}
+  m_PrefabInstance: {fileID: 3372451224371027829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7098875609549178998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5496959197657061123, guid: 683094eed994e904a885d8663c7c39f7, type: 3}
   m_PrefabInstance: {fileID: 3372451224371027829}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &2051956897492799790 stripped
