@@ -225,6 +225,15 @@ public class Player : MonoBehaviour
 		if (value.started)
 			TogglePolarity();
 	}
+
+	/// <summary>
+	/// Called on Player invoking the 'Jump' PlayerAction.
+	/// </summary>
+	/// <param name="value">Information returned on that action by the Input System</param>
+	public void OnJumpInput(InputAction.CallbackContext value)
+	{
+		//
+	}
 	#endregion
 
 	#region Public Functions
