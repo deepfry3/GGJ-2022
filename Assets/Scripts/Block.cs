@@ -124,7 +124,7 @@ public class Block : MonoBehaviour
 
 		// Stronger repel
 		if (player.transform.position.y > transform.position.y && force.y > 0.0f)
-			massagedY *= 2.0f;
+			massagedY *= 9.0f;
 
 		// Apply force
 		force = new Vector3(force.x, massagedY, massagedZ);
