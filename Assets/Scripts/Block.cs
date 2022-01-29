@@ -73,7 +73,7 @@ public class Block : MonoBehaviour
 		}
 		else if (transform.position.y != 4.0f & transform.position.y > 0.0f)
 		{
-			Vector3 target = new Vector3(transform.position.x, 10.0f, transform.position.z);
+			Vector3 target = new Vector3(transform.position.x, 12.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
 	}
@@ -106,19 +106,22 @@ public class Block : MonoBehaviour
 		// Calculate force
 		Vector3 distance = obj.transform.position - transform.position;
 		Vector3 force = m_Force * distance.normalized * (10.0f * Time.deltaTime);
+		force *= (1.0f + (Mathf.Min(player.Speed / 30.0f, 3.0f) - 0.25f));
 		if (m_GradualRolloff)
 			force *= Mathf.Lerp(1.0f, 0.25f, Mathf.Min(distance.magnitude, m_BoxTriggerExtent) / m_BoxTriggerExtent);
 		if (IsRed != player.IsRed)
 			force = -force * 15.0f;
 
 		// Massage force as required
-		Vector3 playerForce = obj.GetComponent<Player>().ForceVelocity;
+		Vector3 playerForce = player.ForceVelocity;
 		float massagedY = force.y, massagedZ = force.z;
-		if (playerForce.y < 0.0f && force.y > 0.0f)
-			massagedY *= 3.0f;
-		else if (playerForce.y > 0.0f && force.y > 0.0f)
-			massagedY *= 0.5f;
-		if (force.z > 0.0f)
+		if (playerForce.y < 0.1f && force.y > 0.0f)         // If falling and being pulled up, get pulled up stronger
+			massagedY *= 4.0f;
+		else if (playerForce.y > 0.1f && force.y > 0.0f)    // If flinging up and being pulled up, get pulled up weaker
+			massagedY *= 0.55f;
+		else if (force.y > 0.0f)							// If still and being pulled up, get pulled up stronger
+			massagedY *= 8.0f;
+		if (force.z > 0.0f)									// If being pulled forward, get pulled stronger
 			massagedZ *= 5.0f;
 
 		// Apply force

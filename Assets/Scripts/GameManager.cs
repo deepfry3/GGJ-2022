@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Set initial spawn points
-		float spacing = PlayerObject.GetComponent<Player>().Speed * 2.0f;
+		float spacing = PlayerObject.GetComponent<Player>().Speed * 3.0f;
 		float x = -3.0f;
 		float z = m_FurthestDistanceSpawned + spacing;
 		
