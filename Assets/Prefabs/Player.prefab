@@ -301,7 +301,9 @@ MonoBehaviour:
   - {fileID: 4766152494946932868}
   - {fileID: 4641791679002190429}
   m_Model: {fileID: 2453392335681774116}
-  m_DeathSound: {fileID: 8300000, guid: 813f8fe18c1d8374d8155b38808fb5e9, type: 3}
+  m_DeathSounds:
+  - {fileID: 8300000, guid: 813f8fe18c1d8374d8155b38808fb5e9, type: 3}
+  - {fileID: 8300000, guid: 9acf4acfe8c488043b77bf2d7271f8a9, type: 3}
   m_TrickSound: {fileID: 8300000, guid: 8857ccce6a442f040a2f13aff04eb37e, type: 3}
   m_ForceMoveVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &8870319173241485197

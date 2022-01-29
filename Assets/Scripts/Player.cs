@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[SerializeField] GameObject m_Model = null;
 	[Header("Audio")]
-	[SerializeField] AudioClip m_DeathSound = null;
+	[SerializeField] AudioClip[] m_DeathSounds = null;
 	[SerializeField] AudioClip m_TrickSound = null;
 
 	// -- Cached Components
@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
 		if (transform.position.y < -10.0f && m_ForceMoveVelocity.y < -10.0f && m_DeathTimer == -1.0f)
 		{
 			m_DeathTimer = 2.0f;
-			m_AudioSource.PlayOneShot(m_DeathSound);
+			m_AudioSource.PlayOneShot(m_DeathSounds[Random.Range(0, m_DeathSounds.Length)]);
 		}
 		if (m_DeathTimer > 0.0f)
 		{
