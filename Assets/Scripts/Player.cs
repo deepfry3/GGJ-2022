@@ -243,16 +243,16 @@ public class Player : MonoBehaviour
 		if (value.started && !IsGrounded && m_CanJumpTimer == 0.0f)
 		{
 			// Force values
-			float y = 8.0f, z = 1.0f;
+			float y = 6.5f, z = 0.75f;
 
 			// Apply stronger/weaker jump if falling/rising fast
-			if (m_ForceMoveVelocity.y < -10.0f)
-				y += (m_ForceMoveVelocity.y + 10.0f) / 1.25f;
-			else if(m_ForceMoveVelocity.y > 10.0f)
-				y -= (m_ForceMoveVelocity.y - 10.0f) / 2.0f;
+			if (m_ForceMoveVelocity.y < -8.0f)
+				y -= (m_ForceMoveVelocity.y + 8.0f) * 1.25f;
+			else if (m_ForceMoveVelocity.y > 8.0f)
+				y -= (m_ForceMoveVelocity.y - 8.0f) * 1.25f;
 
 			// Apply force and reset timer
-			m_ForceMoveVelocity += new Vector3(0.0f, 8.5f, 1.5f);
+			m_ForceMoveVelocity += new Vector3(0.0f, y, z);
 			m_CanJumpTimer = -1.0f;
 		}
 	}

@@ -18,10 +18,15 @@ public class Wall : MonoBehaviour
 
 	#region Unity Functions
 	/// <summary>
-	/// Randomly enables/disables sparks
+	/// Randomly enables/disables sparks and rotates wall pieces randomly
 	/// </summary>
 	void Start()
 	{
+		// Rotate randomly
+		int r = Random.Range(0, 4);
+		float x = (r == 0) ? 0.0f : (r == 1) ? 90.0f : (r == 2) ? 180.0f : (r == 3) ? 270.0f : 0.0f;
+		transform.localEulerAngles = new Vector3(x, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
 		if (Random.value < 0.75f)
 		{
 			m_SparksObject.SetActive(false);
