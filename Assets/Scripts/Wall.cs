@@ -4,7 +4,34 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+	#region Variables / Properties
+	#region Public
+	// -- Properties --
+	#endregion
+
+	#region Private
+	// -- Editable in Inspector --
+	[Header("References")]
+	[SerializeField] GameObject m_SparksObject = null;
+	#endregion
+	#endregion
+
 	#region Unity Functions
+	/// <summary>
+	/// Randomly enables/disables sparks
+	/// </summary>
+	void Start()
+	{
+		if (Random.value < 0.75f)
+		{
+			m_SparksObject.SetActive(false);
+			return;
+		}
+
+		m_SparksObject.SetActive(true);
+		m_SparksObject.transform.localEulerAngles = new Vector3(0.0f, 0.0f, Random.Range(0.0f, 50.0f));
+	}
+
 	/// <summary>
 	/// Animate in
 	/// </summary>
