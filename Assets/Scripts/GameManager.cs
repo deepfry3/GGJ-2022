@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
 			SpawnBlocks();
 
-		if (m_PlayerObject.transform.position.z >= m_FurthestWallSpawned - 750.0f)
+		if (m_PlayerObject.transform.position.z >= m_FurthestWallSpawned - 225.0f)
 			SpawnWalls();
 	}
 	#endregion
@@ -179,9 +179,9 @@ public class GameManager : MonoBehaviour
 
 		// Create new walls
 		float z = m_FurthestWallSpawned + 25.0f;
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			for (int j = -2; j < 2; j++)
+			for (int j = -2; j < 3; j++)
 			{
 				Vector3 spawnPosL = new Vector3((fromScratch ? -35.0f : -75.0f), (j * 25.0f), z + (i * 25.0f));
 				Vector3 spawnPosR = new Vector3((fromScratch ? 35.0f : 75.0f), (j * 25.0f), z + (i * 25.0f));
