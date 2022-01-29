@@ -73,52 +73,6 @@ public class GameManager : MonoBehaviour
 		SpawnBlocks(true);
 	}
 
-	//private void SpawnBlocks()
-	//{
-	//	float z = 28.75f;
-	//	float x = -3.0f;
-	//	for (int i = 0; i < 5; i++)
-	//	{
-	//		for (int j = 0; j < 3; j++)
-	//		{
-	//			if (Random.value < 0.3f)
-	//				continue;
-
-	//			// Spawn new block
-	//			float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
-	//			Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + ((i + 1) * 30.0f));
-	//			Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-	//			if (Random.value < 0.5f)
-	//				newBlock.TogglePolarity();
-
-	//			m_BlockList.Add(newBlock);
-
-	//			m_FurthestDistanceSpawned = z + (i * 11.0f);
-	//		}
-	//	}
-	//}
-
-	//private void SpawnBlockRow()
-	//{
-	//	float z = m_FurthestDistanceSpawned + 30.0f;
-	//	float x = -3.0f;
-	//	for (int j = 0; j < 3; j++)
-	//	{
-	//		if (Random.value < 0.3f)
-	//			continue;
-
-	//		// Spawn new block
-	//		float ySpawn = -10.0f - Random.Range(10.0f, 40.0f);
-	//		Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z);
-	//		Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-	//		if (Random.value < 0.5f)
-	//			newBlock.TogglePolarity();
-
-	//		m_BlockList.Add(newBlock);
-	//		m_FurthestDistanceSpawned = z;
-	//	}
-	//}
-
 	/// <summary>
 	/// Creates block walls.
 	/// </summary>
@@ -159,9 +113,24 @@ public class GameManager : MonoBehaviour
 
 				m_BlockList.Add(newBlock);
 				m_FurthestDistanceSpawned = spawnPos.z;
+
+
+
+
+
+
+				// Spawn new block
+				ySpawn = 10.0f + Random.Range(30.0f, 70.0f);
+				spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * spacing));
+
+				newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+				if (Random.value < 0.5f)
+					newBlock.TogglePolarity();
+
+				m_BlockList.Add(newBlock);
+				m_FurthestDistanceSpawned = spawnPos.z;
 			}
 		}
-		Debug.Log(m_FurthestDistanceSpawned);
 	}
 
 	/// <summary>

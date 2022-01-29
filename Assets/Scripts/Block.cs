@@ -24,6 +24,7 @@ public class Block : MonoBehaviour
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] AudioSource m_AudioSource = null;
+	[SerializeField] MeshRenderer m_ChainRenderer = null;
 	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip m_MagnetAttractSound = null;
@@ -50,13 +51,29 @@ public class Block : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Enable/disable chain
+	/// </summary>
+	void Start()
+	{
+		if (transform.position.y > 0.0f)
+			m_ChainRenderer.enabled = true;
+		else
+			m_ChainRenderer.enabled = false;
+	}
+
+	/// <summary>
 	/// Animate in
 	/// </summary>
 	void Update()
 	{
-		if (transform.position.y != 0.0f)
+		if (transform.position.y != 0.0f & transform.position.y < 0.0f)
 		{
 			Vector3 target = new Vector3(transform.position.x, 0.0f, transform.position.z);
+			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
+		}
+		else if (transform.position.y != 4.0f & transform.position.y > 0.0f)
+		{
+			Vector3 target = new Vector3(transform.position.x, 10.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
 	}
