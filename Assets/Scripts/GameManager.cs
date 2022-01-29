@@ -138,8 +138,9 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Set initial spawn points
+		float spacing = PlayerObject.GetComponent<Player>().Speed * 2.0f;
 		float x = -3.0f;
-		float z = m_FurthestDistanceSpawned + 30.0f;
+		float z = m_FurthestDistanceSpawned + spacing;
 		
 		for (int i = 0; i < (fromScratch ? 5 : 1); i++)
 		{
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
 
 				// Spawn new block
 				float ySpawn = -10.0f - (fromScratch ? (10.0f * i) - (10.0f * j) : Random.Range(10.0f, 40.0f));
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 30.0f));
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * spacing));
 
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
