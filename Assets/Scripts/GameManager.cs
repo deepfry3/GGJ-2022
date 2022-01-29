@@ -99,37 +99,36 @@ public class GameManager : MonoBehaviour
 		
 		for (int i = 0; i < (fromScratch ? 5 : 1); i++)
 		{
+			bool[] topRow = { Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1 };
+			bool[] bottomRow = { Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1 };
+
 			for (int j = 0; j < 3; j++)
 			{
-				if (Random.value < 0.3f)
-					continue;
+				if (topRow[j])
+				{
+					float y = 18.0f + Random.Range(30.0f, 70.0f);
+					Vector3 spawnPos = new Vector3(x + (j * 3.0f), y, z + (i * spacing));
 
-				// Spawn new block
-				float ySpawn = -10.0f - (fromScratch ? (10.0f * i) - (10.0f * j) : Random.Range(10.0f, 40.0f));
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * spacing));
+					Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+					if (Random.value < 0.5f)
+						newBlock.TogglePolarity();
 
-				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-				if (Random.value < 0.5f)
-					newBlock.TogglePolarity();
+					m_BlockList.Add(newBlock);
+					m_FurthestDistanceSpawned = spawnPos.z;
+				}
 
-				m_BlockList.Add(newBlock);
-				m_FurthestDistanceSpawned = spawnPos.z;
+				if (bottomRow[j])
+				{
+					float y = -10.0f - (fromScratch ? (10.0f * i) - (10.0f * j) : Random.Range(10.0f, 40.0f));
+					Vector3 spawnPos = new Vector3(x + (j * 3.0f), y, z + (i * spacing));
 
+					Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
+					if (Random.value < 0.5f)
+						newBlock.TogglePolarity();
 
-
-
-
-
-				// Spawn new block
-				ySpawn = 10.0f + Random.Range(30.0f, 70.0f);
-				spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * spacing));
-
-				newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
-				if (Random.value < 0.5f)
-					newBlock.TogglePolarity();
-
-				m_BlockList.Add(newBlock);
-				m_FurthestDistanceSpawned = spawnPos.z;
+					m_BlockList.Add(newBlock);
+					m_FurthestDistanceSpawned = spawnPos.z;
+				}
 			}
 		}
 	}

@@ -27,8 +27,10 @@ public class Player : MonoBehaviour
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] MeshRenderer[] m_Renderers = null;
+	[SerializeField] GameObject m_Model = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip m_DeathSound = null;
+	[SerializeField] AudioClip m_TrickSound = null;
 
 	// -- Cached Components
 	private PlayerInput m_Input = null;
@@ -139,6 +141,22 @@ public class Player : MonoBehaviour
 		if (moveVec != Vector3.zero)
 		{
 			m_CharController.Move(moveVec * Time.deltaTime);
+		}
+		#endregion
+
+		#region Trick
+		if (m_ForceMoveVelocity.y > 20.0f && m_Model.transform.localEulerAngles.y == 0.0f)
+		{
+			m_AudioSource.PlayOneShot(m_TrickSound);
+			m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, 0.01f, m_Model.transform.localEulerAngles.z);
+		}
+
+		if (m_Model.transform.localEulerAngles.y != 0.0f)
+		{
+			float y = Mathf.Lerp(m_Model.transform.localEulerAngles.y, 360.0f, Time.deltaTime * 4.0f);
+			if (y > 359.5f)
+				y = 0.0f;
+			m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, y, m_Model.transform.localEulerAngles.z);
 		}
 		#endregion
 

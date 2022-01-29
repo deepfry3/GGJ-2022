@@ -24,7 +24,7 @@ public class Block : MonoBehaviour
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] AudioSource m_AudioSource = null;
-	[SerializeField] MeshRenderer m_ChainRenderer = null;
+	[SerializeField] GameObject m_Chain = null;
 	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip m_MagnetAttractSound = null;
@@ -56,9 +56,9 @@ public class Block : MonoBehaviour
 	void Start()
 	{
 		if (transform.position.y > 0.0f)
-			m_ChainRenderer.enabled = true;
+			m_Chain.SetActive(true);
 		else
-			m_ChainRenderer.enabled = false;
+			m_Chain.SetActive(false);
 	}
 
 	/// <summary>
@@ -71,9 +71,9 @@ public class Block : MonoBehaviour
 			Vector3 target = new Vector3(transform.position.x, 0.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
-		else if (transform.position.y != 4.0f & transform.position.y > 0.0f)
+		else if (transform.position.y != 14.0f & transform.position.y > 0.0f)
 		{
-			Vector3 target = new Vector3(transform.position.x, 12.0f, transform.position.z);
+			Vector3 target = new Vector3(transform.position.x, 14.0f, transform.position.z);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 3.5f);
 		}
 	}
@@ -120,9 +120,9 @@ public class Block : MonoBehaviour
 		else if (playerForce.y > 0.1f && force.y > 0.0f)    // If flinging up and being pulled up, get pulled up weaker
 			massagedY *= 0.55f;
 		else if (force.y > 0.0f)							// If still and being pulled up, get pulled up stronger
-			massagedY *= 8.0f;
+			massagedY *= 15.0f;
 		if (force.z > 0.0f)									// If being pulled forward, get pulled stronger
-			massagedZ *= 5.0f;
+			massagedZ *= 4.0f;
 
 		// Apply force
 		if (player.AttachedToBlock && player.IsRed == IsRed)
