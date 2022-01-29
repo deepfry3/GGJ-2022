@@ -82,18 +82,40 @@ public class Block : MonoBehaviour
 		if (obj.tag != "Player")
 			return;
 
+		// Store reference to player
+		Player player = obj.GetComponent<Player>();
+
 		// Calculate force
 		Vector3 distance = obj.transform.position - transform.position;
 		Vector3 force = m_Force * distance.normalized * (10.0f * Time.deltaTime);
 		if (m_GradualRolloff)
 			force *= Mathf.Lerp(1.0f, 0.25f, Mathf.Min(distance.magnitude, m_BoxTriggerExtent) / m_BoxTriggerExtent);
-		if (IsRed != obj.GetComponent<Player>().IsRed)
+		if (IsRed != player.IsRed)
 			force = -force * 15.0f;
 
-		// Apply force
-		if (!TouchingPlayer || IsRed == GameManager.Instance.PlayerObject.GetComponent<Player>().IsRed)
-			obj.GetComponent<Player>().AddForce(force);
+		// Massage force as required
+		Vector3 playerForce = obj.GetComponent<Player>().ForceVelocity;
+		float massagedY = force.y, massagedZ = force.z;
+		if (playerForce.y < 0.0f && force.y > 0.0f)
+			massagedY *= 3.0f;
+		else if (playerForce.y > 0.0f && force.y > 0.0f)
+			massagedY *= 0.5f;
+		if (force.z > 0.0f)
+			massagedZ *= 5.0f;
 
+		// Apply force
+		if (player.AttachedToBlock && player.IsRed == IsRed)
+		{
+			player.SetForce(force * 5.0f);
+		}
+		else
+		{
+			force = new Vector3(force.x, massagedY, massagedZ);
+			if (!TouchingPlayer || IsRed == GameManager.Instance.PlayerObject.GetComponent<Player>().IsRed)
+				obj.GetComponent<Player>().AddForce(force);
+		}
+
+		// Render line
 		m_LineRenderer.SetPositions(new Vector3[] {
 				transform.position, GameManager.Instance.PlayerObject.transform.position
 			});

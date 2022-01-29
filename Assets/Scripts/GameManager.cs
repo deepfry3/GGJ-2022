@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
 	private void SpawnBlocks()
 	{
-		float z = 38.75f;
+		float z = 28.75f;
 		float x = -3.0f;
 		for (int i = 0; i < 5; i++)
 		{
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
 				// Spawn new block
 				float ySpawn = -10.0f - (10.0f * i) - (10.0f * j);
-				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + (i * 11.0f));
+				Vector3 spawnPos = new Vector3(x + (j * 3.0f), ySpawn, z + ((i + 1) * 30.0f));
 				Block newBlock = Instantiate(m_BlockPrefab, spawnPos, Quaternion.identity);
 				if (Random.value < 0.5f)
 					newBlock.TogglePolarity();
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
 	private void SpawnBlockRow()
 	{
-		float z = m_FurthestDistanceSpawned + 11.0f;
+		float z = m_FurthestDistanceSpawned + 30.0f;
 		float x = -3.0f;
 		for (int j = 0; j < 3; j++)
 		{

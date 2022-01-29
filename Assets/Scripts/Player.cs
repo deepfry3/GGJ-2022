@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
 	public bool LastGrounded { get; private set; }
 	public bool IsRed { get; private set; } = true;
 	public List<GameObject> BlocksTouching = new List<GameObject>();
+	public bool AttachedToBlock { get => m_AttachedToBox; }
+	public Vector3 ForceVelocity { get => m_ForceMoveVelocity; }
 	#endregion
 
 	#region Private
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
 	private float m_DeathTimer = -1.0f;
+	private bool m_AttachedToBox = false;
 	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
 	#endregion
 	#endregion
@@ -78,10 +81,15 @@ public class Player : MonoBehaviour
 		boxExtents.x += 0.1f; boxExtents.y += 0.1f; boxExtents.z += 0.1f;
 		Collider[] colliders = Physics.OverlapBox(transform.position, boxExtents, Quaternion.identity, int.MaxValue, QueryTriggerInteraction.Ignore);
 		BlocksTouching.Clear();
+		m_AttachedToBox = false;
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject.tag == "Block")
+			{
 				BlocksTouching.Add(colliders[i].gameObject);
+				if (colliders[i].gameObject.GetComponent<Block>().IsRed != IsRed)
+					m_AttachedToBox = true;
+			}
 		}
 		#endregion
 
@@ -112,8 +120,9 @@ public class Player : MonoBehaviour
 
 		#region Perform movement
 		// Get movement vector based on player input
-		Vector3 moveVec = new Vector3(m_InputMove.x, 0.0f, m_InputMove.y) * m_Speed;
-		moveVec = new Vector3(0.0f, 0.0f, m_Speed);
+		Vector3 moveVec = new Vector3(0.0f, 0.0f, m_Speed);
+		if (m_AttachedToBox)
+			moveVec = Vector3.zero;
 
 		// Add velocity and slight downwards force so Move always does something (fixes RB collisions)
 		moveVec += m_ForceMoveVelocity;
@@ -199,6 +208,16 @@ public class Player : MonoBehaviour
 	public void AddForce(Vector3 force)
 	{
 		m_ForceMoveVelocity += force;
+	}
+
+	/// <summary>
+	/// Resets and sets the specified amount of force to apply to the player's velocity.
+	/// </summary>
+	/// <param name="force">Vector3 of forces to apply</param>
+	public void SetForce(Vector3 force)
+	{
+		m_ForceMoveVelocity = Vector3.zero;
+		AddForce(force);
 	}
 
 	/// <summary>
