@@ -311,9 +311,9 @@ public class Player : MonoBehaviour
 	/// <param name="value">Move left (false) or right (true)</param>
 	private void ChangeLane(bool value)
 	{
-		if (value)
+		if (value && transform.position.x < 3.0f)
 			m_CharController.Move(new Vector3(3.0f, 0.0f, 0.0f));
-		else
+		else if (!value && transform.position.x > -3.0f)
 			m_CharController.Move(new Vector3(-3.0f, 0.0f, 0.0f));
 	}
 	#endregion
