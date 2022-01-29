@@ -1329,7 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f918333da224418bf0f671281f273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SkipTutorial: 1
+  m_SkipTutorial: 0
   m_TutorialPanel: {fileID: 1675162704}
   m_BlockPrefab: {fileID: 4783338034090737796, guid: 28d2e871ba17f254b8bd385dbb45b0b7, type: 3}
   m_PlayerObject: {fileID: 1569947633}
@@ -1456,11 +1456,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 117ebeb12f2f714488924b2a18b25458, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
