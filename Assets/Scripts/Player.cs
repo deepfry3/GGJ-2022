@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	public List<GameObject> BlocksTouching = new List<GameObject>();
 	public bool AttachedToBlock { get => m_AttachedToBox; }
 	public Vector3 ForceVelocity { get => m_ForceMoveVelocity; }
+	public float Speed { get => m_Speed; }
 	#endregion
 
 	#region Private
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
 
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
+	private float m_StartSpeed = 0.0f;
 	private float m_DeathTimer = -1.0f;
 	private bool m_AttachedToBox = false;
 	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour
 	#region Unity Functions
 	/// <summary>
 	/// Called on Awake.
-	/// Caches components.
+	/// Caches components and initialize variables.
 	/// </summary>
 	void Awake()
 	{
@@ -59,6 +61,9 @@ public class Player : MonoBehaviour
 		m_CharController = GetComponent<CharacterController>();
 		m_AudioSource = GetComponent<AudioSource>();
 		m_Renderer = GetComponent<MeshRenderer>();
+
+		// Initialize variables
+		m_StartSpeed = m_Speed;
 	}
 
 	void Update()
@@ -92,6 +97,9 @@ public class Player : MonoBehaviour
 					m_AttachedToBox = true;
 			}
 		}
+
+		// Update speed
+		m_Speed += Time.deltaTime / 3.0f;
 		#endregion
 
 		#region Movement
@@ -230,6 +238,7 @@ public class Player : MonoBehaviour
 		transform.position = new Vector3(0.0f, 1.5f, 0.0f);
 
 		m_DeathTimer = -1.0f;
+		m_Speed = m_StartSpeed;
 		m_ForceMoveVelocity = Vector3.zero;
 		m_CharController.enabled = true;
 	}
