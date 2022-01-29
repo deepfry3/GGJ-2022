@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
 			{
 				topRow[0] = Random.Range(0, 2) == 1; topRow[1] = Random.Range(0, 2) == 1; topRow[2] = Random.Range(0, 2) == 1;
 				bottomRow[0] = Random.Range(0, 2) == 1; bottomRow[1] = Random.Range(0, 2) == 1; bottomRow[2] = Random.Range(0, 2) == 1;
-			} while ((topRow[0] || topRow[1] || topRow[2]) && (bottomRow[0] || bottomRow[1] || bottomRow[2]));
+			} while ((!topRow[0] && !topRow[1] && !topRow[2]) || (!bottomRow[0] && !bottomRow[1] && !bottomRow[2]));
 
 
 
