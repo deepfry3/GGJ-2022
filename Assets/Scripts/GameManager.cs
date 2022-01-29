@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
 		// Reset and create new blocks
 		SpawnBlocks(true);
+		SpawnWalls(true);
 	}
 
 	/// <summary>
