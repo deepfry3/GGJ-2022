@@ -91,6 +91,8 @@ public class Block : MonoBehaviour
 
 		m_LineRenderer.enabled = true;
 		m_AudioSource.PlayOneShot(m_MagnetAttractSound);
+		obj.GetComponent<Player>().AnimationSpeed = 0.15f;
+		obj.GetComponent<Player>().InitialWalkComplete = true;
 	}
 
 	void OnTriggerStay(Collider other)
@@ -147,6 +149,7 @@ public class Block : MonoBehaviour
 		m_LineRenderer.enabled = false;
 		m_AudioSource.PlayOneShot(m_MagnetRepelSound);
 		obj.GetComponent<Player>().JumpTimer = 0.5f;
+		obj.GetComponent<Player>().AnimationSpeed = 1.75f;
 	}
 	#endregion
 

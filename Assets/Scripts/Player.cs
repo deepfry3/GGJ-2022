@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 	public float Speed { get => m_Speed; }
 	public float JumpTimer { get => m_CanJumpTimer; set => m_CanJumpTimer = value; }
 	public float DistanceTravelled { get => m_DistanceTravelled; }
+	public float AnimationSpeed { get => m_Animator.speed; set => m_Animator.speed = value; }
+	public bool InitialWalkComplete { get; set; } = false;
 	#endregion
 
 	#region Private
@@ -28,9 +30,12 @@ public class Player : MonoBehaviour
 	[Header("References")]
 	[SerializeField] Material m_RedMaterial = null;
 	[SerializeField] Material m_BlueMaterial = null;
+	[SerializeField] SkinnedMeshRenderer m_SkinnedRenderer = null;
 	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[SerializeField] GameObject m_Model = null;
 	[SerializeField] Spinner m_CogSpinner = null;
+	[SerializeField] Texture m_RedTex = null;
+	[SerializeField] Texture m_BlueTex = null;
 	[Header("Audio")]
 	[SerializeField] AudioClip[] m_DeathSounds = null;
 	[SerializeField] AudioClip m_TrickSound = null;
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour
 	private CharacterController m_CharController = null;
 	private AudioSource m_AudioSource = null;
 	private MeshRenderer m_Renderer = null;
+	private Animator m_Animator = null;
 
 	// -- Input --
 	private Vector2 m_InputMove = Vector2.zero;
@@ -68,6 +74,7 @@ public class Player : MonoBehaviour
 		m_CharController = GetComponent<CharacterController>();
 		m_AudioSource = GetComponent<AudioSource>();
 		m_Renderer = GetComponent<MeshRenderer>();
+		m_Animator = GetComponentInChildren<Animator>();
 
 		// Initialize variables
 		m_StartSpeed = m_Speed;
@@ -104,6 +111,7 @@ public class Player : MonoBehaviour
 			Transform hitTransform = groundHit.transform;
 			if (groundHit.transform.tag == "Block")
 			{
+				m_Animator.speed = 0.0f;
 			}
 		}
 
@@ -192,6 +200,12 @@ public class Player : MonoBehaviour
 		if (m_DeathTimer < 0.0f)
 			m_DistanceTravelled = transform.position.z;
 		#endregion
+
+		#region Animation
+		if (AnimationSpeed > 0.0f && InitialWalkComplete)
+			AnimationSpeed = Mathf.Lerp(AnimationSpeed, 0.15f, Time.deltaTime);
+		#endregion
+
 		#endregion
 
 		#region Death
@@ -335,6 +349,7 @@ public class Player : MonoBehaviour
 		m_ForceMoveVelocity = Vector3.zero;
 		m_CharController.enabled = true;
 		m_DistanceTravelled = 0.0f;
+		AnimationSpeed = 1.0f;
 	}
 	#endregion
 
@@ -354,10 +369,16 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void TogglePolarity()
 	{
+		Debug.Log("Pressed Polarity");
+
 		// Change polarity
-		m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
-		for (int i = 0; i < m_Renderers.Length; i++)
-			m_Renderers[i].material = IsRed ? m_BlueMaterial : m_RedMaterial;
+		//m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
+		//m_SkinnedRenderer.materials[1] = IsRed ? m_BlueMaterial : m_RedMaterial;
+		m_SkinnedRenderer.materials[1].mainTexture = IsRed ? m_BlueTex : m_RedTex;
+		m_CogSpinner.transform.GetComponent<Renderer>().material.mainTexture = IsRed ? m_BlueTex : m_RedTex;
+
+		//for (int i = 0; i < m_Renderers.Length; i++)
+		//	m_Renderers[i].material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		IsRed = !IsRed;
 
 		// Update cog-spin direction
