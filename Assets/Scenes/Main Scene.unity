@@ -1478,7 +1478,6 @@ MonoBehaviour:
   m_RecordCounter: {fileID: 1604049954}
   m_WallPrefabs:
   - {fileID: 3835130989803838177, guid: 72d96f0bc1095e3479bd2e263abd6f80, type: 3}
-  - {fileID: 3835130989803838177, guid: 36627a45bf66d6148a685ed263baa88b, type: 3}
   - {fileID: 3835130989803838177, guid: 22ddc76d69746b5448308900a0037a2c, type: 3}
   - {fileID: 3835130989803838177, guid: 31528c45788ef4d4e90e73685fd91098, type: 3}
   - {fileID: 3835130989803838177, guid: b2101a6f8f3bc1548a725ab8afb6ece2, type: 3}
