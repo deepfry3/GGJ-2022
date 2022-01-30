@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#");
+		m_DistanceCounter.text = PlayerObject.DistanceTravelled.ToString("#");
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
 			SpawnBlocks();

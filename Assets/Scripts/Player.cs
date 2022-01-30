@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 	public Vector3 ForceVelocity { get => m_ForceMoveVelocity; }
 	public float Speed { get => m_Speed; }
 	public float JumpTimer { get => m_CanJumpTimer; set => m_CanJumpTimer = value; }
+	public float DistanceTravelled { get => m_DistanceTravelled; }
 	#endregion
 
 	#region Private
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
 	private float m_DeathTimer = -1.0f;
 	private bool m_AttachedToBox = false;
 	private float m_CanJumpTimer = 2.5f;
+	private float m_DistanceTravelled = 0.0f;
 	[SerializeField] private Vector3 m_ForceMoveVelocity = Vector3.zero;
 	#endregion
 	#endregion
@@ -185,6 +187,11 @@ public class Player : MonoBehaviour
 				y = 0.0f;
 			m_Model.transform.localEulerAngles = new Vector3(m_Model.transform.localEulerAngles.x, y, m_Model.transform.localEulerAngles.z);
 		}
+
+		#region Travelled
+		if (m_DeathTimer < 0.0f)
+			m_DistanceTravelled = transform.position.z;
+		#endregion
 		#endregion
 
 		#region Death
@@ -327,6 +334,7 @@ public class Player : MonoBehaviour
 		m_Speed = m_StartSpeed;
 		m_ForceMoveVelocity = Vector3.zero;
 		m_CharController.enabled = true;
+		m_DistanceTravelled = 0.0f;
 	}
 	#endregion
 

@@ -1467,7 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f918333da224418bf0f671281f273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SkipTutorial: 1
+  m_SkipTutorial: 0
   m_EnvironmentAudioSource: {fileID: 1250973408}
   m_MusicAudioSource: {fileID: 1250973409}
   m_TutorialPanel: {fileID: 1675162704}
