@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] AudioSource m_EnvironmentAudioSource = null;
 	[SerializeField] AudioSource m_MusicAudioSource = null;
 	[SerializeField] GameObject m_TutorialPanel = null;
+	[SerializeField] GameObject m_TutorialQuotePanel = null;
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
 	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
 	List<GameObject> m_WallList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
+	private float m_TutorialQuoteCountdown = -1.0f;
 	#endregion
 	#endregion
 
@@ -58,6 +60,20 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
+		if (Time.timeScale == 0.0f)
+		{
+			if (m_TutorialQuoteCountdown > 0.0f)
+			{
+				m_TutorialQuoteCountdown -= Time.unscaledDeltaTime;
+				if (m_TutorialQuoteCountdown <= 0.0f)
+				{
+					Time.timeScale = 1.0f;
+					m_EnvironmentAudioSource.Play();
+					m_TutorialQuotePanel.SetActive(false);
+				}
+			}
+		}
+
 		m_DistanceCounter.text = PlayerObject.transform.position.z.ToString("#");
 
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
@@ -84,9 +100,9 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void SkipTutorial()
 	{
-		Time.timeScale = 1.0f;
 		m_TutorialPanel.SetActive(false);
-		m_EnvironmentAudioSource.Play();
+		m_TutorialQuotePanel.SetActive(true);
+		m_TutorialQuoteCountdown = 5.5f;
 	}
 	#endregion
 
