@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Block m_BlockPrefab = null;
 	[SerializeField] Player m_PlayerObject = null;
 	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
+	[SerializeField] TextMeshProUGUI m_RecordCounter = null;
 	[SerializeField] GameObject[] m_WallPrefabs = null;
 	// -- Cached Components
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
 	private float m_TutorialQuoteCountdown = -1.0f;
+	private float m_PersonalBest = 0.0f;
 	#endregion
 	#endregion
 
@@ -56,6 +58,9 @@ public class GameManager : MonoBehaviour
 		SpawnWalls(true);
 
 		Time.timeScale = 0.0f;
+
+		m_DistanceCounter.text = "0";
+		m_RecordCounter.text = "";
 	}
 
 	void Update()
@@ -75,7 +80,9 @@ public class GameManager : MonoBehaviour
 		}
 
 		m_DistanceCounter.text = PlayerObject.DistanceTravelled.ToString("#");
-
+		if (PlayerObject.DistanceTravelled > m_PersonalBest)
+			m_PersonalBest = PlayerObject.DistanceTravelled;
+		
 		if (m_PlayerObject.transform.position.z >= m_FurthestDistanceSpawned - 75.0f)
 			SpawnBlocks();
 
@@ -89,6 +96,9 @@ public class GameManager : MonoBehaviour
 	{
 		// Reset player
 		PlayerObject.GetComponent<Player>().Reset();
+
+		// Show new PB
+		m_RecordCounter.text = "PB " + m_PersonalBest.ToString("#") + "M";
 
 		// Reset and create new blocks
 		SpawnBlocks(true);
