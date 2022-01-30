@@ -74,6 +74,24 @@ public class Player : MonoBehaviour
 	void Update()
 	{
 		#region States
+		// Ensure x velocity is never not 0
+		if (m_ForceMoveVelocity.x != 0.0f)
+			m_ForceMoveVelocity = new Vector3(0.0f, m_ForceMoveVelocity.y, m_ForceMoveVelocity.z);
+		if (transform.position.x != -3.0f && transform.position.x != 0.0f && transform.position.x != 3.0f)
+		{
+			// Find closest
+			float laneDiff1 = Mathf.Abs(transform.position.x - -3.0f);
+			float laneDiff2 = Mathf.Abs(transform.position.x);
+			float laneDiff3 = Mathf.Abs(transform.position.x - 3.0f);
+			float min = Mathf.Min(laneDiff1, laneDiff2, laneDiff3);
+			if (min == laneDiff1)
+				m_CharController.Move(new Vector3(-laneDiff1, 0.0f, 0.0f));
+			else if (min == laneDiff2)
+				m_CharController.Move(new Vector3(transform.position.x > 0.0f ? -laneDiff2 : laneDiff2, 0.0f, 0.0f));
+			else if (min == laneDiff3)
+				m_CharController.Move(new Vector3(laneDiff3, 0.0f, 0.0f));
+		}
+
 		// Update if grounded
 		LastGrounded = IsGrounded;
 		float castDistance = (m_CharController.height * 0.5f) - m_CharController.radius + 0.01f;
