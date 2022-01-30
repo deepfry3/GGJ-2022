@@ -28,10 +28,7 @@ public class Player : MonoBehaviour
 	[SerializeField] float m_Drag = 1.0f;
 	[SerializeField] float m_Gravity = -9.81f;
 	[Header("References")]
-	[SerializeField] Material m_RedMaterial = null;
-	[SerializeField] Material m_BlueMaterial = null;
 	[SerializeField] SkinnedMeshRenderer m_SkinnedRenderer = null;
-	[SerializeField] MeshRenderer[] m_Renderers = null;
 	[SerializeField] GameObject m_Model = null;
 	[SerializeField] Spinner m_CogSpinner = null;
 	[SerializeField] Texture m_RedTex = null;
@@ -46,10 +43,6 @@ public class Player : MonoBehaviour
 	private AudioSource m_AudioSource = null;
 	private MeshRenderer m_Renderer = null;
 	private Animator m_Animator = null;
-
-	// -- Input --
-	private Vector2 m_InputMove = Vector2.zero;
-	private bool m_InputChange = false;
 
 	// -- Misc. --
 	private Vector3 m_PlayerMoveVelocity = Vector3.zero;
@@ -233,16 +226,6 @@ public class Player : MonoBehaviour
 
 	#region Input Actions
 	/// <summary>
-	/// Called on Player invoking the 'Move' PlayerAction.
-	/// Stores the movement vector in a private variable.
-	/// </summary>
-	/// <param name="value">Information returned on that action by the Input System</param>
-	public void OnMoveInput(InputAction.CallbackContext value)
-	{
-		m_InputMove = Vector2.ClampMagnitude(value.ReadValue<Vector2>(), 1.0f);
-	}
-
-	/// <summary>
 	/// Called on Player invoking the 'Left' PlayerAction.
 	/// Player moves left one lane.
 	/// </summary>
@@ -373,13 +356,8 @@ public class Player : MonoBehaviour
 		Debug.Log("Pressed Polarity");
 
 		// Change polarity
-		//m_Renderer.material = IsRed ? m_BlueMaterial : m_RedMaterial;
-		//m_SkinnedRenderer.materials[1] = IsRed ? m_BlueMaterial : m_RedMaterial;
 		m_SkinnedRenderer.materials[1].mainTexture = IsRed ? m_BlueTex : m_RedTex;
 		m_CogSpinner.transform.GetComponent<Renderer>().material.mainTexture = IsRed ? m_BlueTex : m_RedTex;
-
-		//for (int i = 0; i < m_Renderers.Length; i++)
-		//	m_Renderers[i].material = IsRed ? m_BlueMaterial : m_RedMaterial;
 		IsRed = !IsRed;
 
 		// Update cog-spin direction

@@ -16,8 +16,6 @@ public class Block : MonoBehaviour
 	[Header("Parameters")]
 	[SerializeField] bool m_IsRed = false;
 	[SerializeField] float m_Force = 10.0f;
-	[SerializeField] [Range(0.0f, 1.0f)] float m_HForceMultiplier = 1.0f;
-	[SerializeField] [Range(0.0f, 1.0f)] float m_VForceMultiplier = 1.0f;
 	[SerializeField] bool m_GradualRolloff = false;
 	[Header("References")]
 	[SerializeField] BoxCollider m_BoxTrigger = null;

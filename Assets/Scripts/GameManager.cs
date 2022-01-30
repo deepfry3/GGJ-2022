@@ -17,11 +17,8 @@ public class GameManager : MonoBehaviour
 
 	#region Private
 	// -- Editable in Inspector --
-	[Header("Parameters")]
-	[SerializeField] bool m_SkipTutorial = false;
 	[Header("References")]
 	[SerializeField] AudioSource m_EnvironmentAudioSource = null;
-	[SerializeField] AudioSource m_MusicAudioSource = null;
 	[SerializeField] GameObject m_TutorialPanel = null;
 	[SerializeField] GameObject m_TutorialQuotePanel = null;
 	[SerializeField] Block m_BlockPrefab = null;
