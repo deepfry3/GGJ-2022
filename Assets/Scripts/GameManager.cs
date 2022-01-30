@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] TextMeshProUGUI m_DistanceCounter = null;
 	[SerializeField] TextMeshProUGUI m_RecordCounter = null;
 	[SerializeField] GameObject[] m_WallPrefabs = null;
+	[SerializeField] GameObject m_ConveyorBelt = null;
 	// -- Cached Components
 
 	// -- Input --
@@ -36,8 +37,10 @@ public class GameManager : MonoBehaviour
 	// -- Misc --
 	List<Block> m_BlockList = new List<Block>();
 	List<GameObject> m_WallList = new List<GameObject>();
+	List<GameObject> m_ConveyorList = new List<GameObject>();
 	private float m_FurthestDistanceSpawned = 0.0f;
 	private float m_FurthestWallSpawned = 0.0f;
+	private float m_FurthestConveyorSpawned = 0.0f;
 	private float m_TutorialQuoteCountdown = -1.0f;
 	private float m_PersonalBest = 0.0f;
 	#endregion
@@ -217,6 +220,41 @@ public class GameManager : MonoBehaviour
 				m_WallList.Add(newWallR);
 				m_FurthestWallSpawned = spawnPosL.z;
 			}
+		}
+
+		SpawnConveyors(fromScratch);
+	}
+
+	/// <summary>
+	/// Culls conveyors currently out of view, and creates enough to see into the distance.
+	/// </summary>
+	/// <param name="fromScratch">Erases all existing conveyors and creates from the starting position</param>
+	private void SpawnConveyors(bool fromScratch = false)
+	{
+		// Cull all walls that are out of view
+		if (m_ConveyorList != null)
+		{
+			for (int i = m_ConveyorList.Count - 1; i >= 0; i--)
+			{
+				if (fromScratch || m_ConveyorList[i].transform.position.z < PlayerObject.transform.position.z - 50.0f)
+				{
+					Destroy(m_ConveyorList[i]);
+					m_ConveyorList.RemoveAt(i);
+				}
+			}
+		}
+
+		if (fromScratch)
+			m_FurthestConveyorSpawned = -200.0f;
+
+		// Create new walls
+		float z = m_FurthestConveyorSpawned + 200.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			Vector3 spawnPos = new Vector3(0.0f, -150.0f, z + (i * 200.0f));
+			GameObject newConveyor = Instantiate(m_ConveyorBelt, spawnPos, Quaternion.identity);
+			m_ConveyorList.Add(newConveyor);
+			m_FurthestConveyorSpawned = spawnPos.z;
 		}
 	}
 	#endregion
