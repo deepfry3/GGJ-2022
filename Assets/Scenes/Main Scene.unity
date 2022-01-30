@@ -1477,9 +1477,10 @@ MonoBehaviour:
   m_DistanceCounter: {fileID: 800839791}
   m_WallPrefabs:
   - {fileID: 3835130989803838177, guid: 72d96f0bc1095e3479bd2e263abd6f80, type: 3}
-  - {fileID: 3835130989803838177, guid: fc9df2604f93b894689bae762ff41d74, type: 3}
-  - {fileID: 3835130989803838177, guid: a10e965b6b425034b9aa08d323468c00, type: 3}
-  - {fileID: 3835130989803838177, guid: 0d16e51b1ecb06f4085ff4de7db50dc5, type: 3}
+  - {fileID: 3835130989803838177, guid: 36627a45bf66d6148a685ed263baa88b, type: 3}
+  - {fileID: 3835130989803838177, guid: 22ddc76d69746b5448308900a0037a2c, type: 3}
+  - {fileID: 3835130989803838177, guid: 31528c45788ef4d4e90e73685fd91098, type: 3}
+  - {fileID: 3835130989803838177, guid: b2101a6f8f3bc1548a725ab8afb6ece2, type: 3}
 --- !u!4 &1250973407
 Transform:
   m_ObjectHideFlags: 0

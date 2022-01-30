@@ -190,16 +190,16 @@ public class GameManager : MonoBehaviour
 		}
 
 		if (fromScratch)
-			m_FurthestWallSpawned = -25.0f;
+			m_FurthestWallSpawned = -24.5f;
 
 		// Create new walls
-		float z = m_FurthestWallSpawned + 25.0f;
+		float z = m_FurthestWallSpawned + 24.5f;
 		for (int i = 0; i < 10; i++)
 		{
 			for (int j = -2; j < 3; j++)
 			{
-				Vector3 spawnPosL = new Vector3((fromScratch ? -35.0f : -75.0f), (j * 25.0f), z + (i * 25.0f));
-				Vector3 spawnPosR = new Vector3((fromScratch ? 35.0f : 75.0f), (j * 25.0f), z + (i * 25.0f));
+				Vector3 spawnPosL = new Vector3((fromScratch ? -35.0f : -75.0f), (j * 24.5f), z + (i * 24.5f));
+				Vector3 spawnPosR = new Vector3((fromScratch ? 35.0f : 75.0f), (j * 24.5f), z + (i * 24.5f));
 				GameObject newWallL = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPosL, Quaternion.identity);
 				GameObject newWallR = Instantiate(m_WallPrefabs[Random.Range(0, m_WallPrefabs.Length)], spawnPosR, Quaternion.Euler(new Vector3(0.0f, 180.0f, 0.0f)));
 
