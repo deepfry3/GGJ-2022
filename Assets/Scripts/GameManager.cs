@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
 		float z = m_FurthestConveyorSpawned + 200.0f;
 		for (int i = 0; i < 3; i++)
 		{
-			Vector3 spawnPos = new Vector3(0.0f, -150.0f, z + (i * 200.0f));
+			Vector3 spawnPos = new Vector3(0.0f, -110.0f, z + (i * 200.0f));
 			GameObject newConveyor = Instantiate(m_ConveyorBelt, spawnPos, Quaternion.identity);
 			m_ConveyorList.Add(newConveyor);
 			m_FurthestConveyorSpawned = spawnPos.z;
