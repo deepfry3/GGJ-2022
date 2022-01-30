@@ -149,7 +149,7 @@ public class Block : MonoBehaviour
 		m_LineRenderer.enabled = false;
 		m_AudioSource.PlayOneShot(m_MagnetRepelSound);
 		obj.GetComponent<Player>().JumpTimer = 0.5f;
-		obj.GetComponent<Player>().AnimationSpeed = 1.75f;
+		obj.GetComponent<Player>().AnimationSpeed = 1.85f;
 	}
 	#endregion
 

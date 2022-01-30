@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
 
 		#region Animation
 		if (AnimationSpeed > 0.0f && InitialWalkComplete)
-			AnimationSpeed = Mathf.Lerp(AnimationSpeed, 0.15f, Time.deltaTime);
+			AnimationSpeed = Mathf.Lerp(AnimationSpeed, 0.15f, Time.deltaTime * 1.15f);
 		#endregion
 
 		#endregion
@@ -211,7 +211,7 @@ public class Player : MonoBehaviour
 		#region Death
 		if (transform.position.y < -10.0f && m_ForceMoveVelocity.y < -10.0f && m_DeathTimer == -1.0f)
 		{
-			m_DeathTimer = 2.0f;
+			m_DeathTimer = 1.75f;
 			m_AudioSource.PlayOneShot(m_DeathSounds[Random.Range(0, m_DeathSounds.Length)]);
 		}
 		if (m_DeathTimer > 0.0f)
@@ -350,6 +350,7 @@ public class Player : MonoBehaviour
 		m_CharController.enabled = true;
 		m_DistanceTravelled = 0.0f;
 		AnimationSpeed = 1.0f;
+		InitialWalkComplete = false;
 	}
 	#endregion
 
